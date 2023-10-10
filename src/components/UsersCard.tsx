@@ -25,7 +25,7 @@ const UsersCard: FunctionComponent<UserInterface> = ({ user, session }) => {
     >
       <div className="flex items-center gap-4">
         <div className="rounded-full h-[50px] min-w-[50px] border-2 overflow-hidden relative">
-          <Link href={`/users/${user._id}`}>
+          <Link href={`/usuarios/${user._id}`}>
             <CldImage
               alt={`foto de ${user.name}`}
               src={user.image || noProfileImage}
