@@ -1,7 +1,4 @@
-import {
-  faVideoCamera,
-  faMessage,
-} from "@fortawesome/free-solid-svg-icons";
+import { faVideoCamera, faMessage } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import router from "next/router";
@@ -37,7 +34,7 @@ const UsersCard: FunctionComponent<UserInterface> = ({ user, session }) => {
             />
           </Link>
         </div>
-        <Link href={`/users/${user._id}`}>
+        <Link href={`/usuarios/${user._id}`}>
           <div className="flex flex-col">
             <p className="text-lg font-medium">{user.name}</p>
           </div>
