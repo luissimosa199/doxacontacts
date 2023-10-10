@@ -8,6 +8,8 @@ import {
 } from "@tanstack/react-query";
 import { useMemo } from "react";
 import useTrackUserAgent from "../hooks/useTrackUserAgent";
+import Navbar from "@/components/NavBar";
+import Footer from "@/components/Footer";
 
 function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   useTrackUserAgent();
@@ -18,7 +20,9 @@ function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
     <SessionProvider session={session}>
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
+          <Navbar />
           <Component {...pageProps} />
+          <Footer />
         </Hydrate>
       </QueryClientProvider>
     </SessionProvider>

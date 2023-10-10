@@ -2,7 +2,6 @@ import {
   faUserDoctor,
   faClock,
   faDollarSign,
-  faLink,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -72,7 +71,7 @@ const VideoCallLobby = () => {
         <div className="mb-4">
           <div className="flex gap-2 mb-1 items-center">
             <FontAwesomeIcon icon={faUser} />
-            <p className="text-gray-600">Paciente:</p>
+            <p className="text-gray-600">patiente:</p>
           </div>
           <div className="flex items-center justify-between bg-gray-100 p-2 rounded-md">
             <span>{patient}</span>
@@ -106,28 +105,28 @@ const VideoCallLobby = () => {
         </div>
 
         {/* <div className="mb-4 mt-2">
-                  <div className="flex gap-2 mb-1 items-center">
-                      <FontAwesomeIcon icon={faLink} className="" />
-                      <p className="text-gray-600">Link de pago</p>
-                  </div>
-                  <div className="flex items-center justify-between bg-gray-100 p-2 rounded-md">
-                      <span>{paymentLink}</span>
-                      <button onClick={() => handleCopy(paymentLink as string)} className="text-blue-500 hover:text-blue-600">
-                          Copiar
-                      </button>
-                  </div>
-              </div> */}
+                <div className="flex gap-2 mb-1 items-center">
+                    <FontAwesomeIcon icon={faLink} className="" />
+                    <p className="text-gray-600">Link de pago</p>
+                </div>
+                <div className="flex items-center justify-between bg-gray-100 p-2 rounded-md">
+                    <span>{paymentLink}</span>
+                    <button onClick={() => handleCopy(paymentLink as string)} className="text-blue-500 hover:text-blue-600">
+                        Copiar
+                    </button>
+                </div>
+            </div> */}
 
         {/* <div className="mt-2 bg-blue-500 w-full text-white text-center py-2 px-4 rounded hover:bg-blue-600 focus:outline-none">
-          <Link
-            href={`/videocall/${username as string}y${
-              patient as string
-            }?time=${time}`}
-            className=""
-          >
-            Proceder a la consulta
-          </Link>
-        </div> */}
+        <Link
+          href={`/videocall/${username as string}y${
+            patient as string
+          }?time=${time}`}
+          className=""
+        >
+          Proceder a la consulta
+        </Link>
+      </div> */}
         <button
           onClick={handleProceedToCall}
           className="mt-2 bg-blue-500 w-full text-white text-center py-2 px-4 rounded hover:bg-blue-600 focus:outline-none"

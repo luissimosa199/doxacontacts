@@ -6,7 +6,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 
 const Videocall = () => {
   const router = useRouter();
@@ -15,6 +15,14 @@ const Videocall = () => {
   const [patient, setPatient] = useState("");
   const [amount, setAmount] = useState("");
   const [time, setTime] = useState("");
+
+  useEffect(() => {
+    if (router.query.name) {
+      setPatient(router.query.name as string);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router.isReady]);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -37,14 +45,17 @@ const Videocall = () => {
   };
 
   return (
-    <div className="bg-white p-8 rounded shadow-md w-full max-w-md mx-auto mt-10">
-      <form onSubmit={handleSubmit}>
+    <div className="bg-white w-full max-w-md mx-auto mt-10 min-h-screen">
+      <form
+        className="p-8 rounded shadow-md"
+        onSubmit={handleSubmit}
+      >
         <div className="mb-4">
           <label
             htmlFor="amount"
             className="block text-sm font-medium text-gray-700 mb-2"
           >
-            Ingrese nombre del paciente
+            Ingrese nombre del patiente
           </label>
           <div className="flex relative">
             <span className="text-lg mr-2 leading-10 left-2 absolute">

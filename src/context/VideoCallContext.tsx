@@ -1,4 +1,10 @@
-import React, { createContext, useState, useEffect, useCallback } from "react";
+import React, {
+  createContext,
+  useState,
+  useEffect,
+  useCallback,
+  ChangeEvent,
+} from "react";
 import { Socket, io } from "socket.io-client";
 import { useSession } from "next-auth/react";
 import {
@@ -7,14 +13,16 @@ import {
   SocketContextType,
   UserInRoom,
 } from "@/types";
-import { useRouter } from "next/router";
 import { saveChat } from "@/utils/saveChat";
+import { handleNewFileChange, uploadImages } from "@/utils/formHelpers";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
 const SocketContext = createContext<SocketContextType | undefined>(undefined);
 
 const ContextProvider: React.FC<ContextProviderProps> = ({
-  children,
   duration,
+  chatBoxVariant,
+  children,
 }) => {
   const [socket, setSocket] = useState<Socket | null>(null);
 
@@ -24,7 +32,7 @@ const ContextProvider: React.FC<ContextProviderProps> = ({
     setSocket(newSocket);
   }
 
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
 
   const [name, setName] = useState<string>("");
   const [usersInRoom, setUsersInRoom] = useState<UserInRoom[]>([]);
@@ -32,6 +40,74 @@ const ContextProvider: React.FC<ContextProviderProps> = ({
   const [message, setMessage] = useState<string>("");
   const [roomName, setRoomName] = useState<string | null>(null);
   const [chatLoaded, setChatLoaded] = useState<boolean>(false);
+
+  const [files, setFiles] = useState<string[]>([]);
+  const [previews, setPreviews] = useState<string[]>([]);
+  const [submitBtnDisabled, setSubmitBtnDisabled] = useState<boolean>(false);
+
+  const fetchChatMessages = async ({ pageParam }: { pageParam?: string }) => {
+    const beforeTimestamp = pageParam ? pageParam : "";
+
+    if (!roomName) {
+      return;
+    }
+
+    const response = await fetch(
+      `/api/chat/${roomName}?beforeTimestamp=${beforeTimestamp}`,
+      {
+        method: "GET",
+      }
+    );
+
+    return response.json();
+  };
+
+  const { fetchNextPage, hasNextPage } = useInfiniteQuery(
+    ["chatMessages", roomName],
+    fetchChatMessages,
+    {
+      getNextPageParam: (lastPage) => {
+        if (!lastPage) {
+          return false;
+        }
+
+        return lastPage.oldestTimestamp
+          ? new Date(lastPage.oldestTimestamp).getTime().toString()
+          : false;
+      },
+      onSuccess(data) {
+        const fetchedMessages = data.pages
+          .filter((page) => page && Array.isArray(page.messages))
+          .flatMap((page) => page.messages);
+
+        setMessages((prevMessages) => {
+          // Convert existing timestamps to Unix timestamps in milliseconds for quick lookup
+          const existingTimestamps = new Set(
+            prevMessages
+              .filter((msg) => msg.timestamp !== undefined)
+              .map((msg) => {
+                // Check if timestamp is already in Unix format or ISO string format
+                return typeof msg.timestamp === "number"
+                  ? msg.timestamp
+                  : new Date(msg.timestamp!).getTime();
+              })
+          );
+
+          // Filter out any fetched messages that already exist based on their timestamp
+          const uniqueFetchedMessages = fetchedMessages
+            .map((msg) => ({
+              ...msg,
+              timestamp: new Date(msg.timestamp).getTime(),
+            }))
+            .filter((msg) => !existingTimestamps.has(msg.timestamp));
+
+          return [...uniqueFetchedMessages, ...prevMessages];
+        });
+      },
+      staleTime: 1000 * 60 * 60,
+      refetchInterval: false,
+    }
+  );
 
   useEffect(() => {
     if (socket) {
@@ -41,21 +117,37 @@ const ContextProvider: React.FC<ContextProviderProps> = ({
       });
 
       socket.on("roomMessages", (roomMessages) => {
-        setMessages(roomMessages);
+        setMessages((prevMessages) => {
+          // Create a set of existing timestamps for quick lookup
+          const existingTimestamps = new Set(
+            prevMessages.map((msg) => msg.timestamp)
+          );
+
+          // Filter out any roomMessages that already exist based on their timestamp
+          const uniqueRoomMessages = roomMessages.filter(
+            (msg: ChatMessage) => !existingTimestamps.has(msg.timestamp)
+          );
+
+          return [...prevMessages, ...uniqueRoomMessages];
+        });
       });
 
-      if (roomName && session && session.user) {
-        // Join the room
-        const roomToJoin = roomName; // Replace with your actual room name
-        const userName = session.user.name; // Replace with the actual user's name
+      if (roomName && status !== "loading") {
+        const roomToJoin = roomName;
+        const userName = session?.user?.name || "Invitado";
         socket.emit("joinRoomOnConnect", roomToJoin, userName, () => {
           console.log(`Joined the room: ${roomToJoin}`);
         });
-        socket.emit("sendMessage", {
+
+        const chatContent = {
+          timestamp: new Date(),
           room: roomName,
           message: `${userName} se ha conectado al chat`,
-          username: "ChatBot",
-        });
+          user: "ChatBot",
+        };
+
+        socket.emit("sendMessage", chatContent);
+        saveChat({ room: roomName, newMessage: chatContent });
         setChatLoaded(true);
       }
     }
@@ -68,23 +160,68 @@ const ContextProvider: React.FC<ContextProviderProps> = ({
       }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [roomName]);
+  }, [roomName, status]);
 
   useEffect(() => {
     if (session && session.user) {
       setName(session?.user?.name as string);
+    } else {
+      setName("Invitado");
     }
   }, [session]);
 
-  const sendMessage = useCallback(() => {
-    if (socket && message.trim()) {
-      socket.emit("sendMessage", { room: roomName, message, username: name });
-      if (roomName) {
-        saveChat({ room: roomName, newMessage: { message, username: name } });
-      }
-      setMessage(""); // Clear the input after sending
+  useEffect(() => {
+    // Check if there are any files in the state
+    if (files.length > 0) {
+      sendMessage();
     }
-  }, [socket, message, roomName, name, setMessage]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [files]);
+
+  const sendMessage = useCallback(() => {
+    let chatContent: ChatMessage = {
+      timestamp: new Date(),
+      room: roomName as string,
+      user: name,
+      message: message,
+      files: files.map((e) => {
+        return { url: e, type: e.slice(-3) };
+      }),
+    };
+
+    if (
+      socket &&
+      (chatContent.message?.trim() !== "" ||
+        (chatContent.files && chatContent.files.length > 0))
+    ) {
+      socket.emit("sendMessage", chatContent);
+
+      if (roomName) {
+        saveChat({ room: roomName, newMessage: chatContent });
+      }
+
+      setMessage("");
+      setFiles([]);
+      setPreviews([]);
+    }
+  }, [name, files, message, socket, roomName]);
+
+  const handleUploadImages = async (event: ChangeEvent<HTMLInputElement>) => {
+    setSubmitBtnDisabled(true);
+    const newPreviews = await handleNewFileChange(event);
+    setPreviews((prevPreviews) => [...prevPreviews, ...newPreviews]);
+
+    try {
+      const uploadedUrls = await uploadImages(event);
+      // If you want to set the URLs to some state
+      setFiles((prevFiles) => [...prevFiles, ...(uploadedUrls as string[])]);
+    } catch (error) {
+      console.error("Error uploading images:", error);
+    }
+
+    setSubmitBtnDisabled(false);
+    event.target.value = "";
+  };
 
   return (
     <SocketContext.Provider
@@ -92,7 +229,10 @@ const ContextProvider: React.FC<ContextProviderProps> = ({
         name,
         setName,
         usersInRoom,
+        fetchNextPage,
+        hasNextPage,
         messages,
+        status,
         sendMessage,
         message,
         setMessage,
@@ -100,6 +240,11 @@ const ContextProvider: React.FC<ContextProviderProps> = ({
         roomName,
         chatLoaded,
         duration,
+        handleUploadImages,
+        files,
+        previews,
+        submitBtnDisabled,
+        chatBoxVariant,
       }}
     >
       {children}

@@ -82,6 +82,39 @@ export const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
   });
 };
 
+export const handleNewFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+  return new Promise<string[]>((resolve, reject) => {
+    const files = event.target.files;
+    const newPreviews: string[] = [];
+
+    if (files && files.length > 0) {
+      let processedFiles = 0;
+
+      for (let i = 0; i < files.length; i++) {
+        const reader = new FileReader();
+
+        reader.onloadend = () => {
+          const dataURL = reader.result as string;
+          newPreviews.push(dataURL);
+          processedFiles++;
+
+          if (processedFiles === files.length) {
+            resolve(newPreviews);
+          }
+        };
+
+        reader.onerror = () => {
+          reject(new Error("Failed to read file"));
+        };
+
+        reader.readAsDataURL(files[i]);
+      }
+    } else {
+      resolve([]);
+    }
+  });
+};
+
 export const handleFileAdding = (
   event: ChangeEvent<HTMLInputElement>,
   setImages: Dispatch<SetStateAction<string[]>>

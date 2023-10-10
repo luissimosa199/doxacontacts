@@ -22,7 +22,7 @@ const useMicrophoneAndCameraTracks = createMicrophoneAndCameraTracks();
 
 const VideoCallPage = () => {
   const router = useRouter();
-  const { id: channelName, time } = router.query;
+  const { id: channelName } = router.query;
 
   const [inCall, setInCall] = useState(false);
   const [remoteUsers, setRemoteUsers] = useState<IAgoraRTCRemoteUser[]>([]);
@@ -145,8 +145,8 @@ const VideoCallPage = () => {
   }, []);
 
   return (
-    <div className="w-full h-[95vh] grid grid-rows-3 grid-cols-5 gap-2 relative">
-      <div className="border-2 col-span-5 row-span-2 flex justify-center gap-1">
+    <div className="w-full min-h-[95vh] grid grid-rows-3 grid-cols-5 gap-2 relative">
+      <div className="bg-slate-300 h-full col-span-5 row-span-2 flex justify-center gap-1">
         {/* Remote Streams */}
         {remoteUsers.map((user) => (
           <div
@@ -196,10 +196,7 @@ const VideoCallPage = () => {
               )}
             </div>
           </div>
-
-          <div className="h-full pb-2 flex flex-col">
-            <VideoCallChatBox />
-          </div>
+          <VideoCallChatBox />
         </div>
       </div>
 

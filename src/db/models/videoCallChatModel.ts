@@ -1,5 +1,13 @@
 import { modelOptions, prop, getModelForClass } from "@typegoose/typegoose";
 
+class File {
+  @prop({ required: true })
+  url: string;
+
+  @prop({ required: true })
+  type: string;
+}
+
 export class Message {
   @prop()
   timestamp: string;
@@ -7,8 +15,11 @@ export class Message {
   @prop()
   user: string;
 
-  @prop()
-  message: string;
+  @prop({ required: false })
+  message?: string;
+
+  @prop({ type: () => [File], default: [] })
+  files: File[];
 }
 
 class CurrentCall {
@@ -22,6 +33,9 @@ class CurrentCall {
 @modelOptions({
   schemaOptions: {
     timestamps: true,
+  },
+  options: {
+    allowMixed: 0,
   },
 })
 export class VideoCallChat {
@@ -42,6 +56,9 @@ export class VideoCallChat {
 
   @prop()
   messages: Message[];
+
+  @prop({ default: () => [] })
+  subscribedForNotifications?: string[];
 }
 
 export const VideoCallChatModel = getModelForClass(VideoCallChat);
