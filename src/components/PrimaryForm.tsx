@@ -101,17 +101,32 @@ const PrimaryForm = () => {
           }),
         };
 
-        queryClient.setQueryData<{
-          pages: TimelineFormInputs[][];
-          pageParams: any[];
-        }>(["timelines"], {
-          ...currentData,
-          pages: [
-            [newPayload, ...currentData.pages[0].slice(1)],
-            ...currentData.pages.slice(1),
-          ],
-          pageParams: currentData.pageParams,
-        });
+        // Check if on main page
+        if (currentData.pages.length) {
+          queryClient.setQueryData<{
+            pages: TimelineFormInputs[][];
+            pageParams: any[];
+          }>(["timelines"], {
+            ...currentData,
+            pages: [
+              [newPayload, ...currentData.pages[0].slice(1)],
+              ...currentData.pages.slice(1),
+            ],
+            pageParams: currentData.pageParams,
+          });
+        } else {
+          // If on profile page
+          const userTimelines =
+            queryClient.getQueryData<TimelineFormInputs[]>([
+              session?.user?.email,
+              "userTimelines",
+            ]) || [];
+
+          queryClient.setQueryData<TimelineFormInputs[]>(
+            [session?.user?.email, "userTimelines"],
+            [newPayload, ...userTimelines]
+          );
+        }
 
         setPreviews([]);
       },
@@ -157,6 +172,19 @@ const PrimaryForm = () => {
       setTagInputVisibility(false);
       setOpenModule(true);
     }
+  };
+
+  const resetAll = () => {
+    setTagsList([]);
+    setLinksList([]);
+    setImages([]);
+    reset();
+    setTagInputVisibility(false);
+    setLinkInputVisibility(false);
+    setPhotoInputVisibility(false);
+    setOpenModule(false);
+    setImageUploadPromise(null);
+    setSubmitBtnDisabled(false);
   };
 
   const handleUploadImages = async (event: ChangeEvent<HTMLInputElement>) => {
@@ -243,11 +271,7 @@ const PrimaryForm = () => {
     }
 
     // Reset state only after successful submission
-    setTagsList([]);
-    setLinksList([]);
-    setImages([]);
-    reset();
-    setSubmitBtnDisabled(false);
+    resetAll();
   };
 
   return (
