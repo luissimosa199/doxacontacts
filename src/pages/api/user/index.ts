@@ -10,9 +10,22 @@ export default async function handler(
 
   try {
     if (req.method === "GET") {
-      const users = await UserModel.find({}).select("email image name");
+      const { name, tags } = req.query;
+
+      let query: any = {};
+
+      if (name) {
+        query.name = new RegExp(`^${name}`, "i");
+      }
+
+      if (tags) {
+        const tagsArray = Array.isArray(tags) ? tags : [tags];
+        query.tags = { $all: tagsArray };
+      }
+
+      const users = await UserModel.find(query).select("email image name tags");
       if (!users || users.length === 0) {
-        return res.status(404).json({ error: "No users found" });
+        return res.status(200).json([]);
       }
 
       return res.status(200).json(users);
