@@ -4,9 +4,13 @@ import {
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Admin } from "mongodb";
+import { GetServerSideProps } from "next";
+import { getServerSession } from "next-auth";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import React, { FormEvent, useEffect, useState } from "react";
+import { authOptions } from "../api/auth/[...nextauth]";
 
 const Videocall = () => {
   const router = useRouter();
@@ -125,3 +129,20 @@ const Videocall = () => {
 };
 
 export default Videocall;
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getServerSession(context.req, context.res, authOptions);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: session ? "/" : "/login",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+};
