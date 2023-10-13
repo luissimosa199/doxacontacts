@@ -12,13 +12,13 @@ const Videocall = () => {
   const router = useRouter();
   const { data: session, status } = useSession();
 
-  const [patient, setPatient] = useState("");
+  const [user, setUser] = useState("");
   const [amount, setAmount] = useState("");
   const [time, setTime] = useState("");
 
   useEffect(() => {
     if (router.query.name) {
-      setPatient(router.query.name as string);
+      setUser(router.query.name as string);
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -34,13 +34,13 @@ const Videocall = () => {
       router.push(
         `/videocall/lobby?username=${encodeURIComponent(
           session.user.name as string
-        )}&patient=${encodeURIComponent(patient)}&time=${encodeURIComponent(
+        )}&user=${encodeURIComponent(user)}&time=${encodeURIComponent(
           time
         )}&amount=${encodeURIComponent(amount)}`
       );
       setAmount("");
       setTime("");
-      setPatient("");
+      setUser("");
     }
   };
 
@@ -55,17 +55,17 @@ const Videocall = () => {
             htmlFor="amount"
             className="block text-sm font-medium text-gray-700 mb-2"
           >
-            Ingrese nombre del patiente
+            Ingrese nombre del usuario
           </label>
           <div className="flex relative">
             <span className="text-lg mr-2 leading-10 left-2 absolute">
               <FontAwesomeIcon icon={faUser} />
             </span>
             <input
-              onChange={(e) => setPatient(e.target.value)}
-              value={patient}
+              onChange={(e) => setUser(e.target.value)}
+              value={user}
               type="text"
-              id="patient"
+              id="user"
               className="p-2 border pl-8 text-lg leading-tight rounded-md w-full focus:outline-none focus:border-blue-500"
             />
           </div>

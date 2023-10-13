@@ -10,7 +10,7 @@ import { useState } from "react";
 
 const VideoCallLobby = () => {
   const router = useRouter();
-  const { patient, username, time, amount } = router.query;
+  const { user, username, time, amount } = router.query;
 
   const [paymentLink, setPaymentLink] = useState<string | null>(
     "https://mp.pago.com/1234567"
@@ -33,7 +33,7 @@ const VideoCallLobby = () => {
 
     try {
       const response = await fetch(
-        `/api/videocall?room=${username as string}y${patient as string}`,
+        `/api/videocall?room=${username as string}y${user as string}`,
         {
           method: "POST",
           headers: {
@@ -44,7 +44,7 @@ const VideoCallLobby = () => {
       );
 
       if (response.ok) {
-        router.push(`/videocall/${username as string}y${patient as string}`);
+        router.push(`/videocall/${username as string}y${user as string}`);
       } else {
         // custom responses depending on the be
         const responseData = await response.json();
@@ -71,10 +71,10 @@ const VideoCallLobby = () => {
         <div className="mb-4">
           <div className="flex gap-2 mb-1 items-center">
             <FontAwesomeIcon icon={faUser} />
-            <p className="text-gray-600">patiente:</p>
+            <p className="text-gray-600">Usuario:</p>
           </div>
           <div className="flex items-center justify-between bg-gray-100 p-2 rounded-md">
-            <span>{patient}</span>
+            <span>{user}</span>
           </div>
         </div>
 
@@ -120,7 +120,7 @@ const VideoCallLobby = () => {
         {/* <div className="mt-2 bg-blue-500 w-full text-white text-center py-2 px-4 rounded hover:bg-blue-600 focus:outline-none">
         <Link
           href={`/videocall/${username as string}y${
-            patient as string
+            user as string
           }?time=${time}`}
           className=""
         >

@@ -72,17 +72,16 @@ const ProfilePicture: FunctionComponent<ProfilePictureProps> = ({
       />
     </div>
   ) : (
-    <Link href="/perfil">
-      <a
-        className={`flex ${w} ${h} flex-col items-center justify-center relative`}
-      >
-        <CldImage
-          src={(data.image as string) || noProfileImage}
-          fill
-          alt={`${userId}'s Avatar`}
-          className={`object-cover absolute rounded-full border-2 border-gray-300 w-full`}
-        />
-      </a>
+    <Link
+      className={`flex ${w} ${h} flex-col items-center justify-center relative`}
+      href="/perfil"
+    >
+      <CldImage
+        src={(data.image as string) || noProfileImage}
+        fill
+        alt={`${userId}'s Avatar`}
+        className={`object-cover absolute rounded-full border-2 border-gray-300 w-full`}
+      />
     </Link>
   );
 };

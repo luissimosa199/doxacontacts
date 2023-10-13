@@ -45,10 +45,10 @@ const NavBarButton = () => {
             <Link href="/videocall">Iniciar Consulta</Link>
           </li>
           <li>
-            <Link href="/pacientes">Pacientes</Link>
+            <Link href="/usuarios">Usuarios</Link>
           </li>
           <li>
-            <Link href="/pacientes">Videollamadas</Link>
+            <Link href="/usuarios">Videollamadas</Link>
           </li>
         </ul>
       )}

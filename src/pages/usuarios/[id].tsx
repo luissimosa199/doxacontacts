@@ -4,19 +4,22 @@ import { User } from "@/types";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { GetServerSidePropsContext } from "next";
-import Image from "next/image";
 import Link from "next/link";
-import { FunctionComponent } from "react";
+import { FunctionComponent, useState } from "react";
 import escapeStringRegexp from "escape-string-regexp";
 import UserPhotos from "@/components/UserPhotos";
+import { CldImage } from "next-cloudinary";
+import { noProfileImage } from "@/utils/noProfileImage";
 
 interface UserPageProps {
   userData: User | null;
 }
 
 const User: FunctionComponent<UserPageProps> = ({ userData }) => {
+  const [fullScreenPic, setFullScreenPic] = useState<boolean>(false);
+
   return (
-    <div className="p-8 bg-gray-50 space-y-12">
+    <div className="p-4 bg-gray-50 space-y-12">
       <div className="flex gap-2 items-center">
         <Link
           href="/usuarios"
@@ -28,21 +31,28 @@ const User: FunctionComponent<UserPageProps> = ({ userData }) => {
           {userData?.name}
         </h1>
       </div>
-      <div className="flex flex-col justify-around items-center border rounded-lg p-6 bg-white shadow-lg">
-        <div className="flex flex-col items-center relative">
-          <div className="flex flex-col items-center">
-            <Image
+      <div className="flex flex-col w-full justify-around items-center border rounded-lg py-6 bg-white shadow-lg md:max-w-[850px] mx-auto">
+        <div className="flex flex-col items-center relative w-full">
+          <div
+            className="flex flex-col items-center w-full"
+            onClick={() => {
+              setFullScreenPic(!fullScreenPic);
+            }}
+          >
+            <CldImage
               priority
-              src={(userData?.image as string) || "/noprofile.png"}
-              width={128}
-              height={128}
+              src={(userData?.image as string) || noProfileImage}
+              width={fullScreenPic ? 600 : 300}
+              height={fullScreenPic ? 600 : 300}
               alt={`${userData?.name}'s Avatar`}
-              className="w-32 h-32 object-cover rounded-full border-2 border-gray-300 mb-5"
+              className={`${
+                fullScreenPic ? "w-screen h-screen" : "w-96 h-96"
+              } object-cover rounded-full border-2 border-gray-300 mb-5`}
             />
           </div>
         </div>
 
-        <div>
+        <div className="w-full">
           <UserPhotos
             direction="flex-col"
             username={userData?.email as string}

@@ -21,7 +21,7 @@ const Footer = () => {
           <span className="hover:underline">Iniciar consulta</span>
         </Link>
 
-        <Link href="/pacientes">
+        <Link href="/usuarios">
           <span className="hover:underline">Buscar usuarios</span>
         </Link>
       </div>

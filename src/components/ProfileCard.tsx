@@ -86,7 +86,7 @@ const ProfileCard = () => {
             />
           </div>
           {!fullScreenPic && (
-            <div className="border-2 absolute bottom-2 left-2 bg-white h-12 w-12 rounded-full overflow-hidden flex justify-center">
+            <div className=" border-2 absolute bottom-2 left-2 bg-white h-12 w-12 rounded-full overflow-hidden flex justify-center">
               <PhotoInput
                 handleUploadImages={handleChangeAvatar}
                 variant="small"
