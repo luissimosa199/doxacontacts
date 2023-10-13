@@ -29,6 +29,14 @@ export interface TimeLineProps {
   urlSlug?: string;
 }
 
+export interface UserInterface {
+  name: string;
+  email: string;
+  image: string;
+  _id: string;
+  tags: string[];
+}
+
 //
 
 export interface TimelineFormInputs {
