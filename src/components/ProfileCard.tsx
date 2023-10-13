@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, useState } from "react";
 import ProfilePicture from "./ProfilePicture";
 import { useSession } from "next-auth/react";
 import { useQueryClient } from "@tanstack/react-query";
@@ -10,6 +10,7 @@ import ProfileStats from "./ProfileStats";
 import ProfileCategories from "./ProfileCategories";
 
 const ProfileCard = () => {
+  const [fullScreenPic, setFullScreenPic] = useState<boolean>(false);
   const { data: session } = useSession();
   const queryClient = useQueryClient();
 
@@ -67,26 +68,37 @@ const ProfileCard = () => {
     <div className="flex flex-col justify-around items-center rounded-lg p-6 bg-white shadow-lg">
       <div className="px-12">
         <div className="flex flex-col items-center relative ">
-          <div className="w-[150px] h-[150px]">
+          <div
+            onClick={() => {
+              setFullScreenPic(!fullScreenPic);
+            }}
+            className={`${
+              fullScreenPic
+                ? "w-screen h-screen absolute z-50"
+                : "w-[300px] h-[300px]"
+            }`}
+          >
             <ProfilePicture
+              fullScreenPic={fullScreenPic}
               type="user"
-              w="w-[150px]"
-              h="h-[150px]"
+              w={`${fullScreenPic ? "w-full" : "w-[300px]"}`}
+              h={`${fullScreenPic ? "h-full" : "h-[300px]"}`}
             />
           </div>
-          <div className="border-2 absolute bottom-0 left-0 bg-white h-12 w-12 rounded-full overflow-hidden flex justify-center">
-            <PhotoInput
-              handleUploadImages={handleChangeAvatar}
-              variant="small"
-              id="profilepicture"
-            />
-          </div>
+          {!fullScreenPic && (
+            <div className="border-2 absolute bottom-2 left-2 bg-white h-12 w-12 rounded-full overflow-hidden flex justify-center">
+              <PhotoInput
+                handleUploadImages={handleChangeAvatar}
+                variant="small"
+                id="profilepicture"
+              />
+            </div>
+          )}
         </div>
       </div>
 
       <div className="text-center w-full">
-        <p className="font-bold text-2xl mb-3">{session?.user?.name}</p>
-        <p className="italic mb-6 text-gray-600">{session?.user?.email}</p>
+        <p className="font-bold text-2xl my-3">{session?.user?.name}</p>
         <ProfileCategories username={session?.user?.email as string} />
         <ProfileStats />
         <div className="mx-auto flex flex-col justify-center max-[443px]:max-w-[11rem] min-[443px]:max-w-[20.7rem] min-[616px]:max-w-[30.5rem]">

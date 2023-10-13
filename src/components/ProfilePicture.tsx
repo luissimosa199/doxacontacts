@@ -4,12 +4,14 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { noProfileImage } from "@/utils/noProfileImage";
 import { CldImage } from "next-cloudinary";
+import { useRouter } from "next/router";
 
 interface ProfilePictureProps {
   userId?: string;
   w?: string;
   h?: string;
   type: "user" | "pacientes";
+  fullScreenPic?: boolean;
 }
 
 const ProfilePicture: FunctionComponent<ProfilePictureProps> = ({
@@ -17,9 +19,10 @@ const ProfilePicture: FunctionComponent<ProfilePictureProps> = ({
   w,
   h,
   type,
+  fullScreenPic,
 }) => {
   const { data: session } = useSession();
-
+  const router = useRouter();
   const fetchProfilePicture = async () => {
     const response = await fetch(
       `/api/${type}/avatar/?${
@@ -55,12 +58,22 @@ const ProfilePicture: FunctionComponent<ProfilePictureProps> = ({
     );
   }
 
-  return (
-    <Link
-      href="/perfil"
-      className="w-full h-full"
+  return router.pathname === "/perfil" ? (
+    <div
+      className={`flex ${w} ${h} flex-col items-center justify-center relative`}
     >
-      <div
+      <CldImage
+        src={(data.image as string) || noProfileImage}
+        fill
+        alt={`${userId}'s Avatar`}
+        className={`object-cover absolute ${
+          !fullScreenPic && "rounded-full"
+        } border-2 border-gray-300 w-full`}
+      />
+    </div>
+  ) : (
+    <Link href="/perfil">
+      <a
         className={`flex ${w} ${h} flex-col items-center justify-center relative`}
       >
         <CldImage
@@ -69,7 +82,7 @@ const ProfilePicture: FunctionComponent<ProfilePictureProps> = ({
           alt={`${userId}'s Avatar`}
           className={`object-cover absolute rounded-full border-2 border-gray-300 w-full`}
         />
-      </div>
+      </a>
     </Link>
   );
 };
