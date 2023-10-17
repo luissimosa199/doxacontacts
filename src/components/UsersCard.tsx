@@ -6,6 +6,7 @@ import React, { FunctionComponent } from "react";
 import { Session } from "next-auth";
 import { CldImage } from "next-cloudinary";
 import { noProfileImage } from "@/utils/noProfileImage";
+import UserCardButtons from "./UserCardButtons";
 
 interface UserInterface {
   user: {
@@ -40,47 +41,7 @@ const UsersCard: FunctionComponent<UserInterface> = ({ user, session }) => {
           </div>
         </Link>
 
-        <div className="ml-auto flex gap-2">
-          {session?.user && (
-            <button
-              className="hover:text-green-500 transition"
-              onClick={(e) => {
-                e.preventDefault();
-                router.push(
-                  `${
-                    session?.user
-                      ? `/chat/${
-                          (session?.user?.email as string).split("@")[0]
-                        }y${user.name}`
-                      : "/register"
-                  }`
-                );
-              }}
-            >
-              <FontAwesomeIcon
-                size="lg"
-                icon={faMessage}
-              />
-            </button>
-          )}
-
-          <button
-            className="hover:text-blue-500 transition"
-            onClick={(e) => {
-              e.preventDefault();
-              router.push(
-                `${
-                  session?.user ? `/videocall?name=${user.name}}` : "/register"
-                }`
-              );
-            }}
-          >
-            <FontAwesomeIcon
-              size="lg"
-              icon={faVideoCamera}
-            />
-          </button>
-        </div>
+        <UserCardButtons username={user.name} />
       </div>
     </li>
   );

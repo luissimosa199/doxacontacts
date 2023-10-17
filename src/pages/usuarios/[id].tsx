@@ -10,6 +10,7 @@ import escapeStringRegexp from "escape-string-regexp";
 import UserPhotos from "@/components/UserPhotos";
 import { CldImage } from "next-cloudinary";
 import { noProfileImage } from "@/utils/noProfileImage";
+import UserCardButtons from "@/components/UserCardButtons";
 
 interface UserPageProps {
   userData: User | null;
@@ -49,6 +50,9 @@ const User: FunctionComponent<UserPageProps> = ({ userData }) => {
                 fullScreenPic ? "w-screen h-screen" : "w-96 h-96"
               } object-cover rounded-full border-2 border-gray-300 mb-5`}
             />
+          </div>
+          <div className="w-fit mx-auto flex justify-center mb-4">
+            <UserCardButtons username={userData?.name as string} />
           </div>
         </div>
 

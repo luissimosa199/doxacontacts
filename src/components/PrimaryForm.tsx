@@ -101,34 +101,47 @@ const PrimaryForm = () => {
           }),
         };
 
-        // Check if on main page
-        if (currentData.pages.length) {
-          queryClient.setQueryData<{
-            pages: TimelineFormInputs[][];
-            pageParams: any[];
-          }>(["timelines"], {
-            ...currentData,
-            pages: [
-              [newPayload, ...currentData.pages[0].slice(1)],
-              ...currentData.pages.slice(1),
-            ],
-            pageParams: currentData.pageParams,
-          });
-        } else {
-          const userTimelines =
-            queryClient.getQueryData<TimelineFormInputs[]>([
-              session?.user?.email,
-              "userTimelines",
-            ]) || [];
-
-          console.log("@PrimaryForm>l118", { userTimelines, newPayload });
-          queryClient.setQueryData<TimelineFormInputs[]>(
-            [session?.user?.email, "userTimelines"],
-            [newPayload, ...userTimelines]
-          );
-        }
+        queryClient.setQueryData<{
+          pages: TimelineFormInputs[][];
+          pageParams: any[];
+        }>(["timelines"], {
+          ...currentData,
+          pages: [
+            [newPayload, ...currentData.pages[0].slice(1)],
+            ...currentData.pages.slice(1),
+          ],
+          pageParams: currentData.pageParams,
+        });
 
         setPreviews([]);
+      },
+      onMutate(data) {
+        const newPayload = {
+          ...data.data,
+          _id: "newTimeline",
+          createdAt: "ahora",
+          photo: previews.map((image, photoIdx: number) => {
+            const caption = imagesCaption.find(
+              (e) => e.idx === photoIdx
+            )?.value;
+            return {
+              url: image,
+              idx: photoIdx,
+              caption: caption,
+            };
+          }),
+        };
+
+        const userTimelines =
+          queryClient.getQueryData<TimelineFormInputs[]>([
+            session?.user?.email,
+            "userTimelines",
+          ]) || [];
+
+        queryClient.setQueryData<TimelineFormInputs[]>(
+          [session?.user?.email, "userTimelines"],
+          [newPayload, ...userTimelines]
+        );
       },
     }
   );
