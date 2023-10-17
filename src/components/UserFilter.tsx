@@ -8,7 +8,7 @@ const UserFilter = ({
   setSelectedTags: Dispatch<SetStateAction<string[]>>;
 }) => {
   return (
-    <div className="my-4 bg-white p-4 rounded-lg">
+    <div className="my-4 2xl:absolute 2xl:left-8 2xl:shadow-md 2xl:p-8 bg-white p-4 rounded-lg ">
       <h3 className="font-semibold text-lg mb-4 text-gray-700">
         Filtrar por categoría
       </h3>
@@ -21,7 +21,7 @@ const UserFilter = ({
             type="checkbox"
             id={tag}
             value={tag}
-            className="h-5 w-5 text-blue-600 rounded"
+            className="form-checkbox h-5 w-5 text-blue-600 rounded"
             onChange={(e) => {
               if (e.target.checked) {
                 setSelectedTags((prev: string[]) => [...prev, e.target.value]);

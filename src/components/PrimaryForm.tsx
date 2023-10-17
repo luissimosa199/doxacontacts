@@ -115,13 +115,13 @@ const PrimaryForm = () => {
             pageParams: currentData.pageParams,
           });
         } else {
-          // If on profile page
           const userTimelines =
             queryClient.getQueryData<TimelineFormInputs[]>([
               session?.user?.email,
               "userTimelines",
             ]) || [];
 
+          console.log("@PrimaryForm>l118", { userTimelines, newPayload });
           queryClient.setQueryData<TimelineFormInputs[]>(
             [session?.user?.email, "userTimelines"],
             [newPayload, ...userTimelines]

@@ -50,7 +50,7 @@ const Usuarios = () => {
   if (error) return <p>Error</p>;
 
   return (
-    <div className="mt-4 bg-white p-6 rounded-lg shadow-md">
+    <div className="mt-4 bg-white p-6 rounded-lg shadow-md min-h-screen max-w-[850px] mx-auto">
       <div className="flex gap-2">
         <button
           onClick={() => {
