@@ -197,6 +197,8 @@ const ContextProvider: React.FC<ContextProviderProps> = ({
       socket.emit("sendMessage", chatContent);
 
       if (roomName) {
+        console.log("@VideoCallContext", messages[-1]);
+
         saveChat({ room: roomName, newMessage: chatContent });
       }
 
@@ -204,6 +206,7 @@ const ContextProvider: React.FC<ContextProviderProps> = ({
       setFiles([]);
       setPreviews([]);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [name, files, message, socket, roomName]);
 
   const handleUploadImages = async (event: ChangeEvent<HTMLInputElement>) => {
