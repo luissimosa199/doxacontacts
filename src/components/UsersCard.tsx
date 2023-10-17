@@ -47,8 +47,12 @@ const UsersCard: FunctionComponent<UserInterface> = ({ user, session }) => {
               onClick={(e) => {
                 e.preventDefault();
                 router.push(
-                  `/chat/${(session?.user?.email as string).split("@")[0]}y${
-                    user.name
+                  `${
+                    session?.user
+                      ? `/chat/${
+                          (session?.user?.email as string).split("@")[0]
+                        }y${user.name}`
+                      : "/register"
                   }`
                 );
               }}
@@ -60,20 +64,22 @@ const UsersCard: FunctionComponent<UserInterface> = ({ user, session }) => {
             </button>
           )}
 
-          {session?.user && (
-            <button
-              className="hover:text-blue-500 transition"
-              onClick={(e) => {
-                e.preventDefault();
-                router.push(`/videocall?name=${user.name}`);
-              }}
-            >
-              <FontAwesomeIcon
-                size="lg"
-                icon={faVideoCamera}
-              />
-            </button>
-          )}
+          <button
+            className="hover:text-blue-500 transition"
+            onClick={(e) => {
+              e.preventDefault();
+              router.push(
+                `${
+                  session?.user ? `/videocall?name=${user.name}}` : "/register"
+                }`
+              );
+            }}
+          >
+            <FontAwesomeIcon
+              size="lg"
+              icon={faVideoCamera}
+            />
+          </button>
         </div>
       </div>
     </li>
