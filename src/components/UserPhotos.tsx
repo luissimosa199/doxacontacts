@@ -130,7 +130,7 @@ const UserPhotos: FunctionComponent<UserPhotosProps> = ({
             return (
               <div
                 key={e}
-                className="relative w-full flex-shrink-0"
+                className="relative max-w-[500px] flex-shrink-0"
               >
                 {session?.user?.email === username && (
                   <button

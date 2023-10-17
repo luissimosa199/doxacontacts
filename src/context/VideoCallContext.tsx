@@ -197,6 +197,9 @@ const ContextProvider: React.FC<ContextProviderProps> = ({
       socket.emit("sendMessage", chatContent);
 
       if (roomName) {
+        // TODO: VERIFICAR FECHA DEL ULTIMO MENSAJE
+        // SI HA PASADO MAS DE MEDIA HORA, HACER NOTIFICACION
+        // A USUARIOS SUSCRIOTS QUE NO ESTEN ACTUALMENTE EN LA CONVERSACION
         console.log("@VideoCallContext", messages[-1]);
 
         saveChat({ room: roomName, newMessage: chatContent });
