@@ -9,13 +9,12 @@ const CategoriesList = () => {
   const visibleItems = 20;
   const [showAll, setShowAll] = useState(false);
 
-  const { data, isLoading, error } = useQuery<string[] | Error>({
-    queryFn: fetchCategories,
-    queryKey: ["categories"],
-    staleTime: 1000 * 60 * 2,
-    cacheTime: 1000 * 60 * 2,
-    keepPreviousData: true,
-  });
+  const { data, isLoading, error } = useQuery<string[] | Error>(
+    ["categories"],
+    () => {
+      return fetchCategories();
+    }
+  );
 
   if (isLoading) {
     return (
