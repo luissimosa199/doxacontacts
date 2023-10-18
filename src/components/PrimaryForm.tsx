@@ -101,17 +101,19 @@ const PrimaryForm = () => {
           }),
         };
 
-        queryClient.setQueryData<{
-          pages: TimelineFormInputs[][];
-          pageParams: any[];
-        }>(["timelines"], {
-          ...currentData,
-          pages: [
-            [newPayload, ...currentData.pages[0].slice(1)],
-            ...currentData.pages.slice(1),
-          ],
-          pageParams: currentData.pageParams,
-        });
+        if (currentData.pages.length) {
+          queryClient.setQueryData<{
+            pages: TimelineFormInputs[][];
+            pageParams: any[];
+          }>(["timelines"], {
+            ...currentData,
+            pages: [
+              [newPayload, ...currentData.pages[0].slice(1)],
+              ...currentData.pages.slice(1),
+            ],
+            pageParams: currentData.pageParams,
+          });
+        }
 
         setPreviews([]);
       },
@@ -119,7 +121,7 @@ const PrimaryForm = () => {
         const newPayload = {
           ...data.data,
           _id: "newTimeline",
-          createdAt: "ahora",
+          createdAt: new Date().toDateString(),
           photo: previews.map((image, photoIdx: number) => {
             const caption = imagesCaption.find(
               (e) => e.idx === photoIdx

@@ -23,7 +23,10 @@ export default async function handler(
         query.tags = { $all: tagsArray };
       }
 
-      const users = await UserModel.find(query).select("email image name tags");
+      const users = await UserModel.find(query)
+        .select("email image name tags")
+        .sort({ createdAt: -1 });
+
       if (!users || users.length === 0) {
         return res.status(200).json([]);
       }

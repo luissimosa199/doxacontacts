@@ -131,6 +131,7 @@ const ProfileCategories = ({ username }: { username: string }) => {
       {showTagsInput && (
         <div className=" w-full md:w-1/2 mx-auto my-2">
           <FlexInputList
+            modelType="user"
             type="tag"
             inputList={profileTags}
             setInputList={setProfileTags}

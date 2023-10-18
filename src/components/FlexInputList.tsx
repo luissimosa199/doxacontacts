@@ -45,6 +45,7 @@ type TailwindColor = (typeof tailwindNamedColors)[number];
 interface BaseInputListProps {
   placeholder?: string;
   type: "tag" | "link";
+  modelType?: "user";
   showState?: boolean;
   primaryColor?: TailwindColor;
 }
@@ -70,6 +71,7 @@ const InputList: FunctionComponent<InputListProps> = ({
   type,
   showState,
   primaryColor = "blue",
+  modelType,
 }) => {
   const [inputText, setInputText] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
@@ -79,11 +81,16 @@ const InputList: FunctionComponent<InputListProps> = ({
   useEffect(() => {
     if (type === "tag") {
       (async () => {
-        const response = await fetchCategories();
+        let response;
+        if (modelType) {
+          response = await fetchCategories(modelType);
+        } else {
+          response = await fetchCategories();
+        }
         setSuggestions(response);
       })();
     }
-  }, [type]);
+  }, [type, modelType]);
 
   const handleCaptionChange = (idx: number, caption: string) => {
     if (type === "link") {
