@@ -1,9 +1,5 @@
-import { faVideoCamera, faMessage } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import router from "next/router";
 import React, { FunctionComponent } from "react";
-import { Session } from "next-auth";
 import { CldImage } from "next-cloudinary";
 import { noProfileImage } from "@/utils/noProfileImage";
 import UserCardButtons from "./UserCardButtons";
@@ -15,10 +11,15 @@ interface UserInterface {
     image: string;
     _id: string;
   };
-  session: Session | null;
+  favoritesLoading: boolean;
+  isFavorites: boolean;
 }
 
-const UsersCard: FunctionComponent<UserInterface> = ({ user, session }) => {
+const UsersCard: FunctionComponent<UserInterface> = ({
+  user,
+  favoritesLoading,
+  isFavorites,
+}) => {
   return (
     <li
       key={user._id}
@@ -41,7 +42,12 @@ const UsersCard: FunctionComponent<UserInterface> = ({ user, session }) => {
           </div>
         </Link>
 
-        <UserCardButtons username={user.name} />
+        <UserCardButtons
+          username={user.name}
+          email={user.email}
+          favoritesLoading={favoritesLoading}
+          isFavorites={isFavorites}
+        />
       </div>
     </li>
   );

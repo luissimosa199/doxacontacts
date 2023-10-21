@@ -29,6 +29,9 @@ export class User {
   @prop()
   tags?: string[];
 
+  @prop({ default: [] })
+  favorites?: string[];
+
   @prop({ type: [String], default: [] })
   user_agent_id: string[];
 

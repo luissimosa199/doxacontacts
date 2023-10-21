@@ -10,7 +10,6 @@ import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router";
 
 const Usuarios = () => {
-  const { data: session } = useSession();
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [nameFilter, setNameFilter] = useState("");
   const router = useRouter();
@@ -40,6 +39,17 @@ const Usuarios = () => {
   } = useQuery(["users"], fetchUsers, {
     enabled: false,
   });
+
+  const { data: favorites, isLoading: favoritesLoading } = useQuery(
+    ["favorites"],
+    async () => {
+      const response = await fetch(`/api/user/favorites`);
+      if (response.ok) {
+        const data = await response.json();
+        return data;
+      }
+    }
+  );
 
   useEffect(() => {
     refetch();
@@ -78,8 +88,9 @@ const Usuarios = () => {
           users.map((user: UserInterface, idx: number) => (
             <UsersCard
               key={idx}
-              session={session}
               user={user}
+              favoritesLoading={favoritesLoading}
+              isFavorites={favorites ? favorites.includes(user.email) : false}
             />
           ))
         ) : (

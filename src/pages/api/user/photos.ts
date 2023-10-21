@@ -30,9 +30,7 @@ export default async function handler(
         return res.status(200).json({ photos: [] });
       }
       return res.status(200).json(response!.photos);
-
     } else if (req.method === "POST") {
-
       const { photos } = req.body;
 
       if (!photos || !Array.isArray(photos)) {
@@ -52,12 +50,11 @@ export default async function handler(
       }
 
       return res.status(200).json(photos);
-    } else if (req.method === 'DELETE') {
-
+    } else if (req.method === "DELETE") {
       const { photo } = req.body;
 
       if (!photo) {
-          return res.status(400).json({ error: "Photo URL is required" });
+        return res.status(400).json({ error: "Photo URL is required" });
       }
 
       const deletedUserPhoto = new DeletedUserPhotoModel({
@@ -68,17 +65,20 @@ export default async function handler(
       await deletedUserPhoto.save();
 
       const updatedUser = await UserModel.findOneAndUpdate(
-          { email: username },
-          { $pull: { photos: photo } },
-          { new: true }
+        { email: username },
+        { $pull: { photos: photo } },
+        { new: true }
       ).select("photos");
-  
-      if (!updatedUser) {
-          return res.status(404).json({ error: "User not found or photo not found in user's photo array" });
-      }
-  
-      return res.status(200).json(updatedUser.photos);
 
+      if (!updatedUser) {
+        return res
+          .status(404)
+          .json({
+            error: "User not found or photo not found in user's photo array",
+          });
+      }
+
+      return res.status(200).json(updatedUser.photos);
     } else {
       return res.status(405).json({ error: "Method not allowed" });
     }
