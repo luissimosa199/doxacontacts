@@ -8,7 +8,7 @@ const UserFilter = ({
   setSelectedTags: Dispatch<SetStateAction<string[]>>;
 }) => {
   return (
-    <div className="my-4 2xl:absolute 2xl:left-8 2xl:shadow-md 2xl:p-8 bg-white p-4 rounded-lg ">
+    <div className="2xl:shadow-md p-4 rounded-lg">
       <h3 className="font-semibold text-lg mb-4 text-gray-700">
         Filtrar por categoría
       </h3>

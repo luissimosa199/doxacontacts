@@ -8,6 +8,8 @@ import { UserInterface } from "@/types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router";
+import Link from "next/link";
+import AsideMenu from "@/components/AsideMenu";
 
 const Usuarios = () => {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
@@ -72,7 +74,10 @@ const Usuarios = () => {
         <h2>Volver</h2>
       </div>
       <div className="w-full">
-        <UserFilterContainer setSelectedTags={setSelectedTags} />
+        <div className="my-4 2xl:absolute 2xl:left-8 2xl:p-8 bg-white ">
+          <UserFilterContainer setSelectedTags={setSelectedTags} />
+          <AsideMenu />
+        </div>
 
         <input
           type="text"
