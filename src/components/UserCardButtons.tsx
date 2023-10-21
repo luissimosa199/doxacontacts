@@ -29,11 +29,10 @@ const UserCardButtons = ({
   const mutation = useMutation(toggleFavorite, {
     onMutate: ({ email, method }) => {
       queryClient.cancelQueries(["favorites"]);
-      const previousFavorites = queryClient.getQueryData<string[]>([
-        "favorites",
-      ]);
+      const previousFavorites =
+        queryClient.getQueryData<string[]>(["favorites"]) || [];
 
-      if (previousFavorites) {
+      if (Array.isArray(previousFavorites)) {
         if (method === "DELETE") {
           queryClient.setQueryData(
             ["favorites"],
