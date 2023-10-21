@@ -11,6 +11,7 @@ import UserPhotos from "@/components/UserPhotos";
 import { CldImage } from "next-cloudinary";
 import { noProfileImage } from "@/utils/noProfileImage";
 import UserCardButtons from "@/components/UserCardButtons";
+import { useQuery } from "@tanstack/react-query";
 
 interface UserPageProps {
   userData: User | null;
@@ -18,6 +19,17 @@ interface UserPageProps {
 
 const User: FunctionComponent<UserPageProps> = ({ userData }) => {
   const [fullScreenPic, setFullScreenPic] = useState<boolean>(false);
+
+  const { data: favorites, isLoading: favoritesLoading } = useQuery(
+    ["favorites"],
+    async () => {
+      const response = await fetch(`/api/user/favorites`);
+      if (response.ok) {
+        const data = await response.json();
+        return data;
+      }
+    }
+  );
 
   return (
     <div className="p-4 bg-gray-50 space-y-12">
@@ -52,7 +64,14 @@ const User: FunctionComponent<UserPageProps> = ({ userData }) => {
             />
           </div>
           <div className="w-fit mx-auto flex justify-center mb-4">
-            <UserCardButtons username={userData?.name as string} />
+            <UserCardButtons
+              username={userData?.name as string}
+              email={userData?.email as string}
+              favoritesLoading={favoritesLoading}
+              isFavorites={
+                favorites ? favorites.includes(userData?.email) : false
+              }
+            />
           </div>
         </div>
 

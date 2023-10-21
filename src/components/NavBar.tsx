@@ -11,8 +11,6 @@ const Navbar = () => {
   const router = useRouter();
   const isUsersPage = router.asPath === "/usuarios";
 
-  console.log(isUsersPage);
-
   return (
     <header className="flex justify-between gap-2 p-2 bg-base-100">
       <div className={`flex items-center w-1/3 ${isUsersPage && "2xl:hidden"}`}>
