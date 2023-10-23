@@ -10,6 +10,7 @@ interface UserInterface {
     email: string;
     image: string;
     _id: string;
+    slug: string;
   };
   favoritesLoading: boolean;
   isFavorites: boolean;
@@ -27,7 +28,7 @@ const UsersCard: FunctionComponent<UserInterface> = ({
     >
       <div className="flex items-center gap-4">
         <div className="rounded-full h-[50px] min-w-[50px] border-2 overflow-hidden relative">
-          <Link href={`/usuarios/${user._id}`}>
+          <Link href={`/usuarios/${user.slug}`}>
             <CldImage
               alt={`foto de ${user.name}`}
               src={user.image || noProfileImage}
@@ -36,7 +37,7 @@ const UsersCard: FunctionComponent<UserInterface> = ({
             />
           </Link>
         </div>
-        <Link href={`/usuarios/${user._id}`}>
+        <Link href={`/usuarios/${user.slug}`}>
           <div className="flex flex-col">
             <p className="text-lg font-medium">{user.name}</p>
           </div>

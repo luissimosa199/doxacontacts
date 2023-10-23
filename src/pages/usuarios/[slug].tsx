@@ -63,7 +63,7 @@ const User: FunctionComponent<UserPageProps> = ({ userData }) => {
               } object-cover rounded-full border-2 border-gray-300 mb-5`}
             />
           </div>
-          <div className="w-fit mx-auto flex justify-center mb-4">
+          <div className="w-fit h-6 mx-auto flex justify-center mb-4">
             <UserCardButtons
               username={userData?.name as string}
               email={userData?.email as string}
@@ -94,10 +94,9 @@ export const getServerSideProps = async (
   try {
     await dbConnect();
 
-    const { id } = context.query;
-    const safeId = escapeStringRegexp(id as string);
+    const { slug } = context.query;
 
-    const user = await UserModel.findById(id)
+    const user = await UserModel.findOne({ slug })
       .select("name email image photos")
       .lean();
 

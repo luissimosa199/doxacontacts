@@ -13,7 +13,7 @@ export default async function handler(
 
   const { name, email, password, user_agent_id } = req.body;
 
-  console.log(user_agent_id)
+  console.log(user_agent_id);
 
   // Input validation (you may want to add more comprehensive checks)
   if (!name || !email || !password) {
@@ -35,11 +35,30 @@ export default async function handler(
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
 
+    let slug = name.toLowerCase().replaceAll(" ", "-");
+    let originalSlug = slug;
+    let counter = 1;
+
+    while (true) {
+      const existingSlugUser = await UserModel.findOne({ slug });
+      if (!existingSlugUser) break;
+      slug = `${originalSlug}-${counter}`;
+      counter++;
+    }
+
     // Create the user
-    const user = new UserModel({ name, email, user_agent_id, password: hashedPassword });
+    const user = new UserModel({
+      name,
+      email,
+      user_agent_id,
+      password: hashedPassword,
+      slug,
+    });
     await user.save();
 
-    return res.status(201).json({ message: "Usuario registrado correctamente." });
+    return res
+      .status(201)
+      .json({ message: "Usuario registrado correctamente." });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: `Error: ${error}` });

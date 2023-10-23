@@ -13,7 +13,9 @@ const Navbar = () => {
 
   return (
     <header className="flex justify-between gap-2 p-2 bg-base-100">
-      <div className={`flex items-center w-1/3 ${isUsersPage && "2xl:hidden"}`}>
+      <div
+        className={`flex items-center w-1/3 ${isUsersPage && "2xl:invisible"}`}
+      >
         <NavBarButton />
       </div>
 
@@ -37,7 +39,7 @@ const Navbar = () => {
         )}
 
         <button
-          className=""
+          className="w-6 h-6"
           onClick={() => signOut()}
         >
           <div className="">

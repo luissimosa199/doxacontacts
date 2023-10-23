@@ -24,7 +24,7 @@ export default async function handler(
       }
 
       const users = await UserModel.find(query)
-        .select("email image name tags")
+        .select("email image name tags slug")
         .sort({ createdAt: -1 });
 
       if (!users || users.length === 0) {

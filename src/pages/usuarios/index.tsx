@@ -44,7 +44,10 @@ const Usuarios = () => {
     enabled: false,
   });
 
-  const { data: favorites, isLoading: favoritesLoading } = useQuery(
+  const {
+    data: favorites,
+    isLoading: favoritesLoading,
+  }: { data: string[] | undefined; isLoading: boolean } = useQuery(
     ["favorites"],
     async () => {
       if (!session) {
@@ -81,7 +84,10 @@ const Usuarios = () => {
             router.back();
           }}
         >
-          <FontAwesomeIcon icon={faArrowLeft} />
+          <FontAwesomeIcon
+            className="w-6 h-6"
+            icon={faArrowLeft}
+          />
         </button>
         <h2>Volver</h2>
       </div>

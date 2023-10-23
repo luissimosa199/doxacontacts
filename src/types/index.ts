@@ -35,6 +35,7 @@ export interface UserInterface {
   image: string;
   _id: string;
   tags: string[];
+  slug: string;
 }
 
 //

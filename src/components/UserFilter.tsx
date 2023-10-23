@@ -32,6 +32,7 @@ const UserFilter = ({
           >
             <FontAwesomeIcon
               size="lg"
+              className="w-6 h-6"
               icon={filterByFavorites ? faStar : farStar}
             />
           </button>
