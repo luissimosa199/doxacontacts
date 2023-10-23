@@ -13,6 +13,8 @@ import AsideMenu from "@/components/AsideMenu";
 const Usuarios = () => {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [nameFilter, setNameFilter] = useState("");
+  const [filterByFavorites, setFilterByFavorites] = useState<boolean>(false);
+
   const router = useRouter();
   const { data: session } = useSession();
 
@@ -51,7 +53,8 @@ const Usuarios = () => {
       const response = await fetch(`/api/user/favorites`);
       if (response.ok) {
         const data = await response.json();
-        return data.favorites || []; // <-- Extract the array from the object
+        console.log(data);
+        return data;
       } else {
         throw new Error("Could not fetch favorites");
       }
@@ -60,10 +63,22 @@ const Usuarios = () => {
 
   useEffect(() => {
     refetch();
-  }, [selectedTags, nameFilter, refetch]);
+  }, [selectedTags, nameFilter, filterByFavorites, refetch]);
+
+  const displayedUsers =
+    filterByFavorites && favorites
+      ? users.filter((user: UserInterface) => favorites.includes(user.email))
+      : users;
 
   if (isLoading) return <UserListSkeleton />;
 
+  // if (!isLoading) {
+  //   console.log("@UserPage", {
+  //     user: users[0],
+  //     favorites,
+  //     isFavorite: favorites.includes(users[0].email),
+  //   });
+  // }
   if (error) return <p>Error</p>;
 
   return (
@@ -80,7 +95,11 @@ const Usuarios = () => {
       </div>
       <div className="w-full">
         <div className="my-4 2xl:absolute 2xl:left-8 2xl:p-8 bg-white ">
-          <UserFilterContainer setSelectedTags={setSelectedTags} />
+          <UserFilterContainer
+            filterByFavorites={filterByFavorites}
+            setFilterByFavorites={setFilterByFavorites}
+            setSelectedTags={setSelectedTags}
+          />
           <AsideMenu />
         </div>
 
@@ -94,8 +113,8 @@ const Usuarios = () => {
       </div>
 
       <ul className="divide-y divide-gray-200">
-        {users && users.length > 0 ? (
-          users.map((user: UserInterface, idx: number) => (
+        {displayedUsers && displayedUsers.length > 0 ? (
+          displayedUsers.map((user: UserInterface, idx: number) => (
             <UsersCard
               key={idx}
               user={user}

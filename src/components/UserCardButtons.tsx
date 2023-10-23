@@ -1,9 +1,6 @@
 import { toggleFavorite } from "@/utils/toggleFavorite";
-import {
-  faMessage,
-  faStar,
-  faVideoCamera,
-} from "@fortawesome/free-solid-svg-icons";
+import { faMessage, faVideoCamera } from "@fortawesome/free-solid-svg-icons";
+import { faStar as farStar } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
@@ -68,7 +65,7 @@ const UserCardButtons = ({
       >
         <FontAwesomeIcon
           size="lg"
-          icon={faStar}
+          icon={farStar}
         />
       </button>
       <button
