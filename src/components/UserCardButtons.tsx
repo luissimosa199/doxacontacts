@@ -63,6 +63,10 @@ const UserCardButtons = ({
         }
         onClick={(e) => {
           e.preventDefault();
+          if (!session?.user) {
+            router.push("/login");
+            return;
+          }
           const method = isFavorites ? "DELETE" : "POST";
           mutation.mutate({ email, method });
         }}
