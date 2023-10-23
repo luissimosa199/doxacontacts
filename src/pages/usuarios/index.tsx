@@ -53,7 +53,6 @@ const Usuarios = () => {
       const response = await fetch(`/api/user/favorites`);
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
         return data;
       } else {
         throw new Error("Could not fetch favorites");
@@ -72,13 +71,6 @@ const Usuarios = () => {
 
   if (isLoading) return <UserListSkeleton />;
 
-  // if (!isLoading) {
-  //   console.log("@UserPage", {
-  //     user: users[0],
-  //     favorites,
-  //     isFavorite: favorites.includes(users[0].email),
-  //   });
-  // }
   if (error) return <p>Error</p>;
 
   return (
