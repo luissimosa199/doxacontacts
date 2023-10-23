@@ -6,7 +6,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { GetServerSidePropsContext } from "next";
 import Link from "next/link";
 import { FunctionComponent, useState } from "react";
-import escapeStringRegexp from "escape-string-regexp";
 import UserPhotos from "@/components/UserPhotos";
 import { CldImage } from "next-cloudinary";
 import { noProfileImage } from "@/utils/noProfileImage";

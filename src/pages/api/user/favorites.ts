@@ -18,14 +18,9 @@ export default async function handler(
 
   try {
     if (req.method === "GET") {
-      const { page } = req.query;
-      const perPage = 10;
-      const skip = page ? parseInt(page as string) * perPage : 0;
       const response = await UserModel.findOne({ email: session.user.email })
         .select("favorites")
         .sort({ createdAt: -1 })
-        .skip(skip)
-        .limit(perPage)
         .lean();
 
       if (response && !response.favorites) {
@@ -43,7 +38,7 @@ export default async function handler(
         { email: session.user.email },
         { $addToSet: { favorites: favorites } },
         { new: true }
-      ).select("photos");
+      ).select("favorites");
 
       if (!updatedUser) {
         return res.status(404).json({ error: "User not found" });
