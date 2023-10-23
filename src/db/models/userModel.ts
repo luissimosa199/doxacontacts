@@ -20,6 +20,9 @@ export class User {
   @prop({ default: "" })
   slug: string;
 
+  @prop({ default: "" })
+  bio: string;
+
   @prop({ required: true, unique: true })
   email: string;
 

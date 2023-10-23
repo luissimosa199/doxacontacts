@@ -73,6 +73,9 @@ const User: FunctionComponent<UserPageProps> = ({ userData }) => {
               }
             />
           </div>
+          <div className="mb-2">
+            <p className="text-lg">{userData?.bio}</p>
+          </div>
         </div>
 
         <div className="w-full">
@@ -97,7 +100,7 @@ export const getServerSideProps = async (
     const { slug } = context.query;
 
     const user = await UserModel.findOne({ slug })
-      .select("name email image photos")
+      .select("name email image photos bio")
       .lean();
 
     if (user) {
@@ -106,6 +109,7 @@ export const getServerSideProps = async (
         email: user.email,
         image: user.image || "",
         photos: user.photos || [],
+        bio: user.bio || "",
       };
       return {
         props: {

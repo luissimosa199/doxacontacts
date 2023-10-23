@@ -10,6 +10,7 @@ import PrimaryForm from "@/components/PrimaryForm";
 import { useState } from "react";
 import ProfileSkeleton from "@/components/ProfileSkeleton";
 import ToggleButon from "@/components/ToggleButton";
+import UserBio from "@/components/UserBio";
 
 const Profile = () => {
   const [addNewTimeline, setAddNewTimeline] = useState<boolean>(false);
@@ -35,6 +36,9 @@ const Profile = () => {
             </div>
           </div>
           <ProfileCard />
+          <div className="mt-4">
+            <UserBio />
+          </div>
           <UserPhotoGallery />
           <div className="mt-6">
             <h2 className="text-2xl font-semibold mb-6 text-gray-800 border-b-2 pb-2">
