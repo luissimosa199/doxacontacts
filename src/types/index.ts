@@ -65,6 +65,7 @@ export interface User {
   image: string;
   photos: string[];
   bio: string;
+  slug?: string;
 }
 
 // SOCKETS

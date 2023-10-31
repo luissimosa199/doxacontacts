@@ -1,5 +1,6 @@
 import { toggleFavorite } from "@/utils/toggleFavorite";
 import {
+  faMedal,
   faMessage,
   faStar,
   faVideoCamera,

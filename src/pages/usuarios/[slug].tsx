@@ -1,7 +1,7 @@
 import dbConnect from "@/db/dbConnect";
 import { UserModel } from "@/db/models/userModel";
 import { User } from "@/types";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faMedal } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { GetServerSidePropsContext } from "next";
 import Link from "next/link";
@@ -11,6 +11,7 @@ import { CldImage } from "next-cloudinary";
 import { noProfileImage } from "@/utils/noProfileImage";
 import UserCardButtons from "@/components/UserCardButtons";
 import { useQuery } from "@tanstack/react-query";
+import PremiumButton from "@/components/PremiumButton";
 
 interface UserPageProps {
   userData: User | null;
@@ -42,6 +43,8 @@ const User: FunctionComponent<UserPageProps> = ({ userData }) => {
         <h1 className="text-4xl font-bold text-gray-800 border-b-2 pb-3">
           {userData?.name}
         </h1>
+
+        <PremiumButton slug={userData?.slug as string} />
       </div>
       <div className="flex flex-col w-full justify-around items-center border rounded-lg py-6 bg-white shadow-lg md:max-w-[850px] mx-auto">
         <div className="flex flex-col items-center relative w-full">
@@ -99,7 +102,7 @@ export const getServerSideProps = async (
     const { slug } = context.query;
 
     const user = await UserModel.findOne({ slug })
-      .select("name email image photos bio")
+      .select("name email image photos bio slug")
       .lean();
 
     if (user) {
@@ -109,6 +112,7 @@ export const getServerSideProps = async (
         image: user.image || "",
         photos: user.photos || [],
         bio: user.bio || "",
+        slug: user.slug || "",
       };
       return {
         props: {
