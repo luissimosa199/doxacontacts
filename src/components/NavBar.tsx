@@ -5,11 +5,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { signOut, useSession } from "next-auth/react";
 import ProfilePicture from "./ProfilePicture";
 import { useRouter } from "next/router";
+import useOnlineLogger from "@/hooks/useOnlineLogger";
 
 const Navbar = () => {
   const { data: session } = useSession();
   const router = useRouter();
   const isUsersPage = router.asPath === "/usuarios";
+
+  useOnlineLogger();
 
   return (
     <header className="flex justify-between gap-2 p-2 bg-base-100">

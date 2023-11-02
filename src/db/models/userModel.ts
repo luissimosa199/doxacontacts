@@ -23,6 +23,9 @@ export class User {
   @prop({ default: "" })
   bio: string;
 
+  @prop({ default: false })
+  online: boolean;
+
   @prop({ required: true, unique: true })
   email: string;
 

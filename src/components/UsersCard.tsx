@@ -3,6 +3,7 @@ import React, { FunctionComponent } from "react";
 import { CldImage } from "next-cloudinary";
 import { noProfileImage } from "@/utils/noProfileImage";
 import UserCardButtons from "./UserCardButtons";
+import UsersOnlineIndicator from "./UsersOnlineIndicator";
 
 interface UserInterface {
   user: {
@@ -27,6 +28,7 @@ const UsersCard: FunctionComponent<UserInterface> = ({
       className="py-4 space-y-4"
     >
       <div className="flex items-center gap-4">
+        <UsersOnlineIndicator user={user.email} />
         <div className="rounded-full h-[50px] min-w-[50px] border-2 overflow-hidden relative">
           <Link href={`/usuarios/${user.slug}`}>
             <CldImage
