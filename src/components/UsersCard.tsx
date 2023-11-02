@@ -28,7 +28,6 @@ const UsersCard: FunctionComponent<UserInterface> = ({
       className="py-4 space-y-4"
     >
       <div className="flex items-center gap-4">
-        <UsersOnlineIndicator user={user.email} />
         <div className="rounded-full h-[50px] min-w-[50px] border-2 overflow-hidden relative">
           <Link href={`/usuarios/${user.slug}`}>
             <CldImage
@@ -42,6 +41,7 @@ const UsersCard: FunctionComponent<UserInterface> = ({
         <Link href={`/usuarios/${user.slug}`}>
           <div className="flex flex-col">
             <p className="text-lg font-medium">{user.name}</p>
+            <UsersOnlineIndicator user={user.email} />
           </div>
         </Link>
 

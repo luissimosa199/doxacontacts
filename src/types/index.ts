@@ -36,6 +36,7 @@ export interface UserInterface {
   _id: string;
   tags: string[];
   slug: string;
+  online?: boolean;
 }
 
 //

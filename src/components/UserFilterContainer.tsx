@@ -6,13 +6,14 @@ interface UserFilterContainerProps {
   setSelectedTags: React.Dispatch<React.SetStateAction<string[]>>;
   setFilterByFavorites: React.Dispatch<React.SetStateAction<boolean>>;
   filterByFavorites: boolean;
+  setFilterOnline: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const UserFilterContainer: FunctionComponent<UserFilterContainerProps> = ({
   setSelectedTags,
   setFilterByFavorites,
-  filterByFavorites
-
+  filterByFavorites,
+  setFilterOnline,
 }) => {
   const [userTags, setUserTags] = useState<string[]>([]);
   const { data, isLoading, error } = useCategories("user");
@@ -30,10 +31,11 @@ const UserFilterContainer: FunctionComponent<UserFilterContainerProps> = ({
   return (
     <div>
       <UserFilter
-      filterByFavorites={filterByFavorites}
-      setFilterByFavorites={setFilterByFavorites}
+        filterByFavorites={filterByFavorites}
+        setFilterByFavorites={setFilterByFavorites}
         tags={userTags}
         setSelectedTags={setSelectedTags}
+        setFilterOnline={setFilterOnline}
       />
     </div>
   );

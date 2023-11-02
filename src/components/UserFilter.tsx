@@ -8,11 +8,13 @@ const UserFilter = ({
   setSelectedTags,
   setFilterByFavorites,
   filterByFavorites,
+  setFilterOnline,
 }: {
   tags: string[];
   setSelectedTags: React.Dispatch<React.SetStateAction<string[]>>;
   setFilterByFavorites: React.Dispatch<React.SetStateAction<boolean>>;
   filterByFavorites: boolean;
+  setFilterOnline: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   return (
     <div className="2xl:shadow-md p-4 rounded-lg">
@@ -41,6 +43,22 @@ const UserFilter = ({
             className="ml-2 text-gray-600"
           >
             Favoritos
+          </label>
+        </li>
+
+        <li className="flex items-center mb-2">
+          <input
+            type="checkbox"
+            id="online"
+            // value={}
+            className="form-checkbox h-5 w-5 text-blue-600 rounded"
+            onChange={(e) => setFilterOnline(e.target.checked)}
+          />
+          <label
+            htmlFor="online"
+            className="ml-2 text-gray-600"
+          >
+            En Línea
           </label>
         </li>
 

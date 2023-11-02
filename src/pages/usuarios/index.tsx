@@ -1,7 +1,7 @@
 import { useSession } from "next-auth/react";
 import { useQuery } from "@tanstack/react-query";
 import UsersCard from "@/components/UsersCard";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import UserFilterContainer from "@/components/UserFilterContainer";
 import UserListSkeleton from "@/components/UserListSkeleton";
 import { UserInterface } from "@/types";
@@ -14,6 +14,7 @@ const Usuarios = () => {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [nameFilter, setNameFilter] = useState("");
   const [filterByFavorites, setFilterByFavorites] = useState<boolean>(false);
+  const [filterOnline, setFilterOnline] = useState(false);
 
   const router = useRouter();
   const { data: session } = useSession();
@@ -67,10 +68,32 @@ const Usuarios = () => {
     refetch();
   }, [selectedTags, nameFilter, filterByFavorites, refetch]);
 
-  const displayedUsers =
-    filterByFavorites && favorites
-      ? users.filter((user: UserInterface) => favorites.includes(user.email))
-      : users;
+  const displayedUsers = useMemo(() => {
+    let filteredUsers = users || [];
+    if (filterByFavorites && favorites) {
+      filteredUsers = filteredUsers.filter((user: UserInterface) =>
+        favorites.includes(user.email)
+      );
+    }
+    if (filterOnline) {
+      filteredUsers = filteredUsers.filter(
+        (user: UserInterface) => user.online
+      );
+    }
+
+    // Sort users so that online users come first
+    filteredUsers.sort((a: UserInterface, b: UserInterface) => {
+      if (a.online && !b.online) {
+        return -1; // a comes before b
+      }
+      if (!a.online && b.online) {
+        return 1; // b comes before a
+      }
+      return 0; // no change in order
+    });
+
+    return filteredUsers;
+  }, [users, favorites, filterByFavorites, filterOnline]);
 
   if (isLoading) return <UserListSkeleton />;
 
@@ -99,6 +122,7 @@ const Usuarios = () => {
             filterByFavorites={filterByFavorites}
             setFilterByFavorites={setFilterByFavorites}
             setSelectedTags={setSelectedTags}
+            setFilterOnline={setFilterOnline}
           />
           <AsideMenu />
         </div>

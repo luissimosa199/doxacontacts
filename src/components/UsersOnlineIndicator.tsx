@@ -26,27 +26,19 @@ const UsersOnlineIndicator: FunctionComponent<UsersOnlineIndicatorProps> = ({
     }
   );
 
-  if (!data) {
+  if (!data || !data.online || isLoading) {
     return (
-      <div className="flex flex-col items-center">
-        <div className={`rounded-full w-3 h-3 bg-slate-400`}></div>
-        <p className="text-xs w-4 text-center"></p>
+      <div className="flex items-center">
+        <div className={`w-3 h-3`}></div>
+        <p className=""></p>
       </div>
     );
   }
 
   return (
-    <div className="flex flex-col items-center">
-      <div
-        className={`rounded-full w-3 h-3 ${
-          data.online ? "bg-green-400" : "bg-slate-400"
-        } `}
-      ></div>
-      {!isLoading && (
-        <p className="text-xs w-6 text-center">
-          {data.online ? "en línea" : ""}
-        </p>
-      )}
+    <div className="flex items-center gap-2">
+      <div className={`rounded-full w-3 h-3 bg-green-400`}></div>
+      <p className="text-xs text-center leading-none ">en línea</p>
     </div>
   );
 };

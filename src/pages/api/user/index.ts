@@ -32,7 +32,7 @@ export default async function handler(
       }
 
       const users = await UserModel.find(query)
-        .select("email image name tags slug")
+        .select("email image name tags slug online")
         .sort({ createdAt: -1 });
 
       if (!users || users.length === 0) {
