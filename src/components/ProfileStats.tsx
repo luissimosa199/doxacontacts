@@ -1,10 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
+import { useSession } from "next-auth/react";
 import React from "react";
 
 const ProfileStats = () => {
+  const { data: session } = useSession();
+
   const { data, isLoading, error } = useQuery(["userStats"], async () => {
     const response = await fetch(
-      "/api/user_agent_info?username=luissimosaarg@gmail.com",
+      `/api/user_agent_info?username=${session?.user?.email}`,
       {
         method: "GET",
       }

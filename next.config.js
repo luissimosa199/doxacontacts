@@ -1,9 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  transpilePackages: ['@jitsi/react-sdk'],
+  transpilePackages: ["@jitsi/react-sdk"],
   serverRuntimeConfig: {
-    maxRequestBodySize: '100mb',
+    maxRequestBodySize: "100mb",
   },
   images: {
     remotePatterns: [
@@ -23,9 +23,12 @@ const nextConfig = {
         protocol: "https",
         hostname: "avatars.githubusercontent.com",
       },
+      {
+        protocol: "https",
+        hostname: "assets.website-files.com",
+      },
     ],
   },
 };
 
 module.exports = nextConfig;
-

@@ -77,7 +77,9 @@ const Usuarios = () => {
   if (error) return <p>Error</p>;
 
   return (
-    <div className="mt-4 bg-white p-6 rounded-lg shadow-md min-h-screen max-w-[850px] mx-auto">
+    <div
+      className={`mt-4 min-h-[130vh] bg-white p-6 rounded-lg shadow-md max-w-[450px] 2xl:max-w-[850px] mx-auto`}
+    >
       <div className="flex gap-2">
         <button
           onClick={() => {
@@ -92,7 +94,7 @@ const Usuarios = () => {
         <h2>Volver</h2>
       </div>
       <div className="w-full">
-        <div className="my-4 2xl:absolute 2xl:left-8 2xl:p-8 bg-white ">
+        <div className="my-4 lg:absolute lg:left-8 2xl:p-8 bg-white">
           <UserFilterContainer
             filterByFavorites={filterByFavorites}
             setFilterByFavorites={setFilterByFavorites}
