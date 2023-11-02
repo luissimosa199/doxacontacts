@@ -65,15 +65,15 @@ export default async function handler(
         return res.status(404).json({ error: "User not found" });
       }
 
-      const tenMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+      const minutesAgo = new Date(Date.now() - 2 * 60 * 1000);
 
       if (user.role === "BOT") {
         return res.status(200).json({ online: user.online });
       }
 
-      if (user.online && user.updatedAt < tenMinutesAgo) {
+      if (user.online && user.updatedAt < minutesAgo) {
         const updatedUser = await UserModel.findOneAndUpdate(
-          { email: email, online: true, updatedAt: { $lt: tenMinutesAgo } },
+          { email: email, online: true },
           { $set: { online: false } },
           { new: true }
         );
