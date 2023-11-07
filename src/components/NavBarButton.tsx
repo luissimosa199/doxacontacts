@@ -13,7 +13,7 @@ const NavBarButton = () => {
 
   return (
     <button
-      className="cursor-pointer relative"
+      className="cursor-pointer relative text-white"
       onClick={handleOpenNavBar}
     >
       <svg
@@ -33,7 +33,7 @@ const NavBarButton = () => {
       {showNavBar && (
         <ul
           tabIndex={0}
-          className="mt-3 p-2 bg-white shadow rounded bg-base-100 w-52 z-40 absolute text-xl flex flex-col gap-4"
+          className="mt-3 p-2 bg-black shadow rounded bg-base-100 w-52 z-40 absolute text-xl flex flex-col gap-4"
         >
           <li>
             <Link href="/">Homepage</Link>

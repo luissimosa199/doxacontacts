@@ -4,7 +4,7 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="flex flex-col md:flex-row md:justify-around p-10 bg-base-200 text-base-content relative">
+    <footer className="flex flex-col md:flex-row md:justify-around p-10 bg-base-200 text-base-content text-white relative">
       {/* <WhatsAppBtn tlf={1156160290} /> */}
       <div className="flex flex-col gap-2 mb-2 md:mb-4">
         <Link href="/">
