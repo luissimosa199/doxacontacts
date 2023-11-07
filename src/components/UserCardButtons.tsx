@@ -53,14 +53,14 @@ const UserCardButtons = ({
   });
 
   return (
-    <div className="ml-auto flex gap-2">
+    <div className="flex gap-2 w-full justify-around">
       <button
         className={`${
           favoritesLoading
             ? "animate-pulse"
             : isFavorites
-            ? "text-yellow-500 sm:hover:text-black"
-            : "text-black active:text-yellow-500 sm:hover:text-yellow-500"
+            ? "text-yellow-500 sm:hover:text-white"
+            : "text-white active:text-yellow-500 sm:hover:text-yellow-500"
         } w-6`}
         onClick={(e) => {
           e.preventDefault();
@@ -94,6 +94,7 @@ const UserCardButtons = ({
       >
         <FontAwesomeIcon
           size="lg"
+          className="text-white"
           icon={faMessage}
         />
       </button>
@@ -109,6 +110,7 @@ const UserCardButtons = ({
       >
         <FontAwesomeIcon
           size="lg"
+          className="text-white"
           icon={faVideoCamera}
         />
       </button>

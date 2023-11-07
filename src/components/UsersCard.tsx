@@ -25,22 +25,25 @@ const UsersCard: FunctionComponent<UserInterface> = ({
   return (
     <li
       key={user._id}
-      className="py-4 space-y-4"
+      className=""
     >
-      <div className="flex items-center gap-4">
-        <div className="rounded-full h-[50px] min-w-[50px] border-2 overflow-hidden relative">
-          <Link href={`/usuarios/${user.slug}`}>
+      <div className="flex flex-col items-center gap-y-2 w-full">
+        <Link
+          href={`/usuarios/${user.slug}`}
+          className=""
+        >
+          <div className="h-[180px] w-[180px] overflow-hidden relative">
             <CldImage
               alt={`foto de ${user.name}`}
               src={user.image || noProfileImage}
               fill
               className="absolute object-cover"
             />
-          </Link>
-        </div>
+          </div>
+        </Link>
         <Link href={`/usuarios/${user.slug}`}>
           <div className="flex flex-col">
-            <p className="text-lg font-medium">{user.name}</p>
+            <p className="text-lg font-medium text-white">{user.name}</p>
             <UsersOnlineIndicator user={user.email} />
           </div>
         </Link>

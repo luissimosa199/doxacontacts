@@ -2,6 +2,7 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { faStar as farStar } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
+import UserFilterElement from "./UserFilterElement";
 
 const UserFilter = ({
   tags,
@@ -17,12 +18,12 @@ const UserFilter = ({
   setFilterOnline: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   return (
-    <div className="2xl:shadow-md p-4 rounded-lg">
-      <h3 className="font-semibold text-lg mb-4 text-gray-700">
+    <div className="p-4 bg-black">
+      <h3 className="font-semibold text-lg mb-4 text-white">
         Filtrar por categoría
       </h3>
-      <ul>
-        <li className="flex items-center mb-2">
+      <ul className="flex flex-wrap">
+        <li className="flex items-center justify-center bg-[#1a1a1a] border border-[#3a3a3a] p-2 w-1/2 h-16">
           <button
             aria-label="Toggle favorite filter"
             onClick={() => setFilterByFavorites((prev) => !prev)}
@@ -34,64 +35,44 @@ const UserFilter = ({
           >
             <FontAwesomeIcon
               size="lg"
-              className="w-6 h-6"
+              className={`w-6 h-6 ${
+                filterByFavorites ? "text-[#f90]" : "text-gray-200"
+              }`}
               icon={filterByFavorites ? faStar : farStar}
             />
           </button>
           <label
             htmlFor="favorites"
-            className="ml-2 text-gray-600"
+            className={`ml-2 text-center capitalize ${
+              filterByFavorites ? "text-[#f90]" : "text-gray-200"
+            }`}
           >
             Favoritos
           </label>
         </li>
 
-        <li className="flex items-center mb-2">
+        <li className="flex items-center justify-center bg-[#1a1a1a] border border-[#3a3a3a]  p-2 w-1/2 h-16">
           <input
             type="checkbox"
             id="online"
-            // value={}
+            hidden
             className="form-checkbox h-5 w-5 text-blue-600 rounded"
             onChange={(e) => setFilterOnline(e.target.checked)}
           />
           <label
             htmlFor="online"
-            className="ml-2 text-gray-600"
+            className={`ml-2 text-center capitalize text-gray-200`}
           >
             En Línea
           </label>
         </li>
 
         {tags.map((tag) => (
-          <li
+          <UserFilterElement
             key={tag}
-            className="flex items-center mb-2"
-          >
-            <input
-              type="checkbox"
-              id={tag}
-              value={tag}
-              className="form-checkbox h-5 w-5 text-blue-600 rounded"
-              onChange={(e) => {
-                if (e.target.checked) {
-                  setSelectedTags((prev: string[]) => [
-                    ...prev,
-                    e.target.value,
-                  ]);
-                } else {
-                  setSelectedTags((prev: string[]) =>
-                    prev.filter((t) => t !== e.target.value)
-                  );
-                }
-              }}
-            />
-            <label
-              htmlFor={tag}
-              className="ml-2 text-gray-600"
-            >
-              {tag}
-            </label>
-          </li>
+            tag={tag}
+            setState={setSelectedTags}
+          />
         ))}
       </ul>
     </div>

@@ -29,7 +29,7 @@ const UsersOnlineIndicator: FunctionComponent<UsersOnlineIndicatorProps> = ({
   if (!data || !data.online || isLoading) {
     return (
       <div className="flex items-center">
-        <div className={`w-3 h-3`}></div>
+        <div className=""></div>
         <p className=""></p>
       </div>
     );
