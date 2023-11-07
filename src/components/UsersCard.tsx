@@ -42,7 +42,7 @@ const UsersCard: FunctionComponent<UserInterface> = ({
           </div>
         </Link>
         <Link href={`/usuarios/${user.slug}`}>
-          <div className="flex flex-col">
+          <div className="flex flex-col items-center">
             <p className="text-lg font-medium text-white">{user.name}</p>
             <UsersOnlineIndicator user={user.email} />
           </div>

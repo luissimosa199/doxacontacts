@@ -101,7 +101,7 @@ const Usuarios = () => {
 
   return (
     <div
-      className={`mt-4 min-h-[130vh] bg-black p-6 rounded-lg shadow-md max-w-[450px] md:max-w-[850px] lg:max-w-4xl xl:max-w-6xl mx-auto`}
+      className={`mt-4 min-h-[130vh] bg-white p-6 rounded-lg shadow-md max-w-[450px] 2xl:max-w-[850px] mx-auto`}
     >
       <div className="flex gap-2">
         <button
@@ -116,15 +116,15 @@ const Usuarios = () => {
         </button>
         <h2>Volver</h2>
       </div>
-      <div className="w-full mb-4">
-        <div className="my-4">
+      <div className="w-full">
+        <div className="my-4 lg:absolute lg:left-8 2xl:p-8 bg-white">
           <UserFilterContainer
             filterByFavorites={filterByFavorites}
             setFilterByFavorites={setFilterByFavorites}
             setSelectedTags={setSelectedTags}
             setFilterOnline={setFilterOnline}
           />
-          {/* <AsideMenu /> */}
+          <AsideMenu />
         </div>
 
         <input
@@ -136,7 +136,7 @@ const Usuarios = () => {
         />
       </div>
 
-      <ul className="flex flex-wrap gap-y-4 justify-around w-full">
+      <ul className="divide-y divide-gray-200">
         {displayedUsers && displayedUsers.length > 0 ? (
           displayedUsers.map((user: UserInterface, idx: number) => (
             <UsersCard

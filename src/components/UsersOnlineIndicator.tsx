@@ -38,7 +38,7 @@ const UsersOnlineIndicator: FunctionComponent<UsersOnlineIndicatorProps> = ({
   return (
     <div className="flex items-center gap-2">
       <div className={`rounded-full w-3 h-3 bg-green-400`}></div>
-      <p className="text-xs text-center leading-none ">en línea</p>
+      <p className="text-xs text-center leading-none text-white">en línea</p>
     </div>
   );
 };
