@@ -65,7 +65,7 @@ const ProfileCard = () => {
   };
 
   return (
-    <div className="flex flex-col justify-around items-center rounded-lg p-6 bg-white shadow-lg">
+    <div className="flex flex-col justify-around items-center rounded-lg p-6 bg-[#1a1a1a] shadow-lg">
       <div className="px-12">
         <div className="flex flex-col items-center relative ">
           <div
@@ -98,12 +98,14 @@ const ProfileCard = () => {
       </div>
 
       <div className="text-center w-full">
-        <p className="font-bold text-2xl my-3">{session?.user?.name}</p>
+        <p className="font-bold text-2xl my-3 text-white">
+          {session?.user?.name}
+        </p>
         <ProfileCategories username={session?.user?.email as string} />
         <ProfileStats />
         <div className="mx-auto flex flex-col justify-center max-[443px]:max-w-[11rem] min-[443px]:max-w-[20.7rem] min-[616px]:max-w-[30.5rem]">
           <ProfileButtonsPanel />
-          <div className="flex justify-center">
+          <div className="flex justify-center text-white">
             <AdsSwitch />
           </div>
         </div>

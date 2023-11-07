@@ -24,13 +24,13 @@ const Profile = () => {
   if (session && session.user) {
     return (
       <>
-        <div className="p-8 bg-gray-50 space-y-12">
+        <div className="p-8 bg-[#3a3a3a] space-y-12">
           <div className="flex gap-2 items-center justify-between">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 text-white">
               <Link href="/">
                 <FontAwesomeIcon icon={faArrowLeft} />
               </Link>
-              <h1 className="text-4xl font-bold text-gray-800 border-b-2 pb-3">
+              <h1 className="text-4xl font-bold text-white border-b-2 pb-3">
                 Perfil
               </h1>
             </div>
@@ -41,7 +41,7 @@ const Profile = () => {
           </div>
           <UserPhotoGallery />
           <div className="mt-6">
-            <h2 className="text-2xl font-semibold mb-6 text-gray-800 border-b-2 pb-2">
+            <h2 className="text-2xl font-semibold mb-6 border-b-2 pb-2 text-white">
               Últimas publicaciones
             </h2>
             <ToggleButon

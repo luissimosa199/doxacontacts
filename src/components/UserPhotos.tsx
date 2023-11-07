@@ -169,7 +169,7 @@ const UserPhotos: FunctionComponent<UserPhotosProps> = ({
             );
           })
         ) : (
-          <p className="text-gray-600 italic">No hay fotos para mostrar</p>
+          <p className="text-gray-200 italic">No hay fotos para mostrar</p>
         )}
       </div>
     </>

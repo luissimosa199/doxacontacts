@@ -65,7 +65,7 @@ const UserBio = () => {
   return (
     <>
       <div className="border-b-2 flex gap-2 items-center mb-6 pb-2">
-        <h2 className="text-2xl font-semibold text-gray-800">Sobre mi</h2>
+        <h2 className="text-2xl font-semibold text-white">Sobre mi</h2>
         <ToggleButon
           state={showBioInput}
           setState={toggleBioInput}
@@ -81,7 +81,7 @@ const UserBio = () => {
           className="w-full shadow-md rounded p-2"
         />
       ) : (
-        <p className="text-lg">{data.bio}</p>
+        <p className="text-lg text-gray-300">{data.bio}</p>
       )}
     </>
   );

@@ -61,7 +61,7 @@ const LastTenUserTimeline: FunctionComponent<LastTenUserTimelineProps> = ({
   }
 
   return (
-    <div className="mt-4 bg-white p-6 rounded-lg shadow-md">
+    <div className="mt-4 bg-[#1a1a1a] p-6 rounded-lg shadow-md">
       {data && data.length > 0 ? (
         <ul className="divide-y divide-gray-200">
           {data.map((e: TimelineFormInputs, idx: number) => (
@@ -69,12 +69,14 @@ const LastTenUserTimeline: FunctionComponent<LastTenUserTimelineProps> = ({
               key={idx}
               className="py-4 space-y-4"
             >
-              <p className="text-lg text-gray-600">
+              <p className="text-lg text-gray-300">
                 {formatDateString(e.createdAt)}
               </p>
 
               {e.mainText && (
-                <p className="text-xl mb-4 font-semibold">{e.mainText}</p>
+                <p className="text-xl text-white mb-4 font-semibold">
+                  {e.mainText}
+                </p>
               )}
 
               {e.photo && e.photo.length > 0 && (

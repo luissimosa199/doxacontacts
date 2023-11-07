@@ -37,7 +37,7 @@ const Navbar = () => {
           </div>
         ) : (
           <Link href="/login">
-            <p className="text-3xl">Iniciar Sesion</p>
+            <p className="text-3xl text-white">Iniciar Sesion</p>
           </Link>
         )}
 
@@ -45,7 +45,7 @@ const Navbar = () => {
           className="w-6 h-6"
           onClick={() => signOut()}
         >
-          <div className="">
+          <div className="text-white">
             <FontAwesomeIcon icon={faPowerOff} />
           </div>
         </button>

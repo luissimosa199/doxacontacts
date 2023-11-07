@@ -112,7 +112,7 @@ const UserPhotoGallery: FunctionComponent = () => {
 
   return (
     <div>
-      <h2 className="text-2xl font-semibold mb-6 text-gray-800 border-b-2 pb-2">
+      <h2 className="text-2xl font-semibold mb-6 text-white border-b-2 pb-2">
         Fotos
       </h2>
       <UserPhotos username={session!.user!.email as string} />
