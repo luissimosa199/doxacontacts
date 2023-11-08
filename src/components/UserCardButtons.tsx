@@ -7,76 +7,25 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faStar as farStar } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import React from "react";
+import UserFavButton from "./UserFavButton";
 
 const UserCardButtons = ({
   username,
   email,
-  favoritesLoading,
-  isFavorites,
 }: {
   username: string;
   email: string;
-  favoritesLoading: boolean;
-  isFavorites: boolean;
 }) => {
   const router = useRouter();
   const { data: session } = useSession();
 
-  const queryClient = useQueryClient();
-
-  const mutation = useMutation(toggleFavorite, {
-    onMutate: ({ email, method }) => {
-      queryClient.cancelQueries(["favorites"]);
-      const previousFavorites =
-        queryClient.getQueryData<string[]>(["favorites"]) || [];
-
-      if (Array.isArray(previousFavorites)) {
-        if (method === "DELETE") {
-          queryClient.setQueryData(
-            ["favorites"],
-            previousFavorites.filter((fav) => fav !== email)
-          );
-        } else {
-          queryClient.setQueryData(
-            ["favorites"],
-            [...previousFavorites, email]
-          );
-        }
-      }
-
-      return { previousFavorites };
-    },
-  });
-
   return (
     <div className="flex gap-2 w-full justify-around">
-      <button
-        className={`${
-          favoritesLoading
-            ? "animate-pulse"
-            : isFavorites
-            ? "text-yellow-500 sm:hover:text-white"
-            : "text-white active:text-yellow-500 sm:hover:text-yellow-500"
-        } w-6`}
-        onClick={(e) => {
-          e.preventDefault();
-          if (!session?.user) {
-            router.push("/login");
-            return;
-          }
-          const method = isFavorites ? "DELETE" : "POST";
-          mutation.mutate({ email, method });
-        }}
-      >
-        <FontAwesomeIcon
-          size="lg"
-          icon={isFavorites ? faStar : farStar}
-        />
-      </button>
+      <UserFavButton username={email} />
       <button
         className="hover:text-green-500 transition w-6"
         onClick={(e) => {

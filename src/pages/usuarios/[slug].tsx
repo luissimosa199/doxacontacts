@@ -1,92 +1,44 @@
 import dbConnect from "@/db/dbConnect";
 import { UserModel } from "@/db/models/userModel";
 import { User } from "@/types";
-import { faArrowLeft, faMedal } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { GetServerSidePropsContext } from "next";
-import Link from "next/link";
 import { FunctionComponent, useState } from "react";
-import UserPhotos from "@/components/UserPhotos";
-import { CldImage } from "next-cloudinary";
-import { noProfileImage } from "@/utils/noProfileImage";
-import UserCardButtons from "@/components/UserCardButtons";
-import { useQuery } from "@tanstack/react-query";
-import PremiumButton from "@/components/PremiumButton";
+import UserButtonsPanel from "@/components/UserButtonsPanel";
+import ProfileTabs from "@/components/ProfileTabs";
+import UserPosts from "@/components/UserPosts";
+import UserPhotoGallery from "@/components/UserPhotoGallery";
+import UserPageCard from "@/components/UserPageCard";
 
 interface UserPageProps {
   userData: User | null;
 }
 
 const User: FunctionComponent<UserPageProps> = ({ userData }) => {
-  const [fullScreenPic, setFullScreenPic] = useState<boolean>(false);
-
-  const { data: favorites, isLoading: favoritesLoading } = useQuery(
-    ["favorites"],
-    async () => {
-      const response = await fetch(`/api/user/favorites`);
-      if (response.ok) {
-        const data = await response.json();
-        return data;
-      }
-    }
-  );
+  const [selectedTab, setSelectedTab] = useState<string>("fotos");
 
   return (
-    <div className="p-4 bg-gray-50 space-y-12">
-      <div className="flex gap-2 items-center">
-        <Link
-          href="/usuarios"
-          className="w-4 h-4"
-        >
-          <FontAwesomeIcon icon={faArrowLeft} />
-        </Link>
-        <h1 className="text-4xl font-bold text-gray-800 border-b-2 pb-3">
-          {userData?.name}
-        </h1>
+    <div className="bg-[#3a3a3a] space-y-12 lg:space-y-0">
+      <UserPageCard userData={userData} />
 
-        <PremiumButton slug={userData?.slug as string} />
+      <div className="hidden bg-black p-2 lg:flex py-4 justify-between">
+        <ProfileTabs
+          setSelectedTab={setSelectedTab}
+          selectedTab={selectedTab}
+        />
+        <UserButtonsPanel username={userData?.email as string} />
       </div>
-      <div className="flex flex-col w-full justify-around items-center border rounded-lg py-6 bg-white shadow-lg md:max-w-[850px] mx-auto">
-        <div className="flex flex-col items-center relative w-full">
-          <div
-            className="flex flex-col items-center w-full"
-            onClick={() => {
-              setFullScreenPic(!fullScreenPic);
-            }}
-          >
-            <CldImage
-              priority
-              src={(userData?.image as string) || noProfileImage}
-              width={fullScreenPic ? 600 : 300}
-              height={fullScreenPic ? 600 : 300}
-              alt={`${userData?.name}'s Avatar`}
-              className={`${
-                fullScreenPic ? "w-screen h-screen" : "w-96 h-96"
-              } object-cover rounded-full border-2 border-gray-300 mb-5`}
-            />
-          </div>
-          <div className="w-fit h-6 mx-auto flex justify-center mb-4">
-            <UserCardButtons
-              username={userData?.name as string}
-              email={userData?.email as string}
-              favoritesLoading={favoritesLoading}
-              isFavorites={
-                favorites ? favorites.includes(userData?.email) : false
-              }
-            />
-          </div>
-          <div className="mb-2">
-            <p className="text-lg">{userData?.bio}</p>
-          </div>
-        </div>
 
-        <div className="w-full">
-          <UserPhotos
-            direction="flex-col"
-            username={userData?.email as string}
-          />
-        </div>
-      </div>
+      {(() => {
+        switch (selectedTab) {
+          case "publicaciones":
+            return <UserPosts username={userData?.email as string} />;
+
+          case "fotos":
+            return <UserPhotoGallery username={userData?.email as string} />;
+          default:
+            break;
+        }
+      })()}
     </div>
   );
 };
@@ -102,8 +54,10 @@ export const getServerSideProps = async (
     const { slug } = context.query;
 
     const user = await UserModel.findOne({ slug })
-      .select("name email image photos bio slug")
+      .select("name email image photos bio slug tags")
       .lean();
+
+    console.log("@user>slug", user);
 
     if (user) {
       const userData = {
@@ -113,6 +67,7 @@ export const getServerSideProps = async (
         photos: user.photos || [],
         bio: user.bio || "",
         slug: user.slug || "",
+        tags: user.tags || [],
       };
       return {
         props: {

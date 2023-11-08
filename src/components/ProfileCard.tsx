@@ -7,7 +7,7 @@ import PhotoInput from "./PhotoInput";
 import AdsSwitch from "./AdsSwitch";
 import ProfileButtonsPanel from "./ProfileButtonsPanel";
 import ProfileStats from "./ProfileStats";
-import UserBio from "./UserBio";
+import ProfileBio from "./ProfileBio";
 
 const ProfileCard = () => {
   const [fullScreenPic, setFullScreenPic] = useState<boolean>(false);
@@ -109,7 +109,7 @@ const ProfileCard = () => {
             <ProfileButtonsPanel />
           </div>
           <div className="lg:hidden">
-            <UserBio />
+            <ProfileBio />
             <div className="flex justify-center text-white">
               <AdsSwitch />
             </div>

@@ -51,8 +51,6 @@ const UsersCard: FunctionComponent<UserInterface> = ({
         <UserCardButtons
           username={user.name}
           email={user.email}
-          favoritesLoading={favoritesLoading}
-          isFavorites={isFavorites}
         />
       </div>
     </li>

@@ -1,11 +1,11 @@
 import { useSession } from "next-auth/react";
-import UserPhotoGallery from "@/components/UserPhotoGallery";
+import ProfilePhotoGallery from "@/components/ProfilePhotoGallery";
 import ProfileCard from "@/components/ProfileCard";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import ProfileSkeleton from "@/components/ProfileSkeleton";
 import ProfileButtonsPanel from "@/components/ProfileButtonsPanel";
-import UserPosts from "@/components/UserPosts";
+import ProfilePosts from "@/components/ProfilePosts";
 import ProfileTabs from "@/components/ProfileTabs";
 
 const Profile = () => {
@@ -19,28 +19,29 @@ const Profile = () => {
 
   if (session && session.user) {
     return (
-      <>
-        <div className="bg-[#3a3a3a] space-y-12 lg:space-y-0">
-          <ProfileCard />
+      <div className="bg-[#3a3a3a] space-y-12 lg:space-y-0">
+        <ProfileCard />
 
-          <div className="hidden bg-black p-2 lg:flex py-4 justify-between">
-            <ProfileTabs setSelectedTab={setSelectedTab} selectedTab={selectedTab} />
-            <ProfileButtonsPanel />
-          </div>
-
-          {(() => {
-            switch (selectedTab) {
-              case "publicaciones":
-                return <UserPosts />;
-
-              case "fotos":
-                return <UserPhotoGallery />;
-              default:
-                break;
-            }
-          })()}
+        <div className="hidden bg-black p-2 lg:flex py-4 justify-between">
+          <ProfileTabs
+            setSelectedTab={setSelectedTab}
+            selectedTab={selectedTab}
+          />
+          <ProfileButtonsPanel />
         </div>
-      </>
+
+        {(() => {
+          switch (selectedTab) {
+            case "publicaciones":
+              return <ProfilePosts />;
+
+            case "fotos":
+              return <ProfilePhotoGallery />;
+            default:
+              break;
+          }
+        })()}
+      </div>
     );
   }
 

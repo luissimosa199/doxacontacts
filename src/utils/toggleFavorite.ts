@@ -5,10 +5,13 @@ export const toggleFavorite = async ({
   email: string;
   method: "DELETE" | "POST";
 }) => {
-  const response = await fetch(`/api/user/favorites`, {
-    method,
-    body: email,
-  });
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/favorites`,
+    {
+      method,
+      body: email,
+    }
+  );
 
   if (!response.ok) {
     throw new Error("Network response was not ok");
