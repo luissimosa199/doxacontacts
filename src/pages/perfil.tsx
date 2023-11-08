@@ -3,14 +3,11 @@ import LastTenUserTimeline from "@/components/LastTenUserTimeline";
 import UserPhotoGallery from "@/components/UserPhotoGallery";
 import ProfileCard from "@/components/ProfileCard";
 import { useRouter } from "next/router";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-import Link from "next/link";
 import PrimaryForm from "@/components/PrimaryForm";
 import { useState } from "react";
 import ProfileSkeleton from "@/components/ProfileSkeleton";
 import ToggleButon from "@/components/ToggleButton";
-import UserBio from "@/components/UserBio";
+import ProfileButtonsPanel from "@/components/ProfileButtonsPanel";
 
 const Profile = () => {
   const [addNewTimeline, setAddNewTimeline] = useState<boolean>(false);
@@ -24,18 +21,16 @@ const Profile = () => {
   if (session && session.user) {
     return (
       <>
-        <div className="bg-[#3a3a3a] space-y-12">
-          {/* <div className="flex gap-2 items-center justify-between">
-            <div className="flex items-center gap-2 text-white">
-              <Link href="/">
-                <FontAwesomeIcon icon={faArrowLeft} />
-              </Link>
-              <h1 className="text-4xl font-bold text-white border-b-2 pb-3">
-                Perfil
-              </h1>
-            </div>
-          </div> */}
+        <div className="bg-[#3a3a3a] space-y-12 lg:space-y-0">
           <ProfileCard />
+
+          <div className="hidden bg-black p-2 lg:flex py-4 justify-between">
+            <ul className="flex gap-6 text-lg text-gray-400">
+              <li className="cursor-pointer">Publicaciones</li>
+              <li className="cursor-pointer">Fotos</li>
+            </ul>
+            <ProfileButtonsPanel />
+          </div>
 
           <UserPhotoGallery />
           <div className="mt-6">

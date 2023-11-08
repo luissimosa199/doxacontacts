@@ -31,20 +31,21 @@ const buttons = [
 
 const ProfileButtonsPanel: FunctionComponent = () => {
   return (
-    <ul className="flex justify-around my-4">
+    <ul className="flex justify-around my-4 lg:my-0 lg:gap-2">
       {buttons.map((e, idx) => {
         return (
           <li
             key={idx}
-            className="w-28 h-20 text-gray-300 hover:opacity-70"
+            className="w-28 h-20 lg:h-fit lg:w-fit lg:rounded-lg lg:px-4 text-gray-300 lg:bg-[#3a3a3a] active:hover:opacity-70 lg:hover:opacity-70"
           >
             <Link
-              className="flex flex-col justify-center items-center"
+              className="flex flex-col lg:flex-row lg:gap-2 justify-center items-center"
               href={e.href}
             >
               <FontAwesomeIcon
                 size="2x"
                 icon={e.icon}
+                className="lg:w-4"
               />
               <span>{e.name}</span>
             </Link>

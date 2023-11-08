@@ -88,7 +88,7 @@ const ProfileCategories = ({
   return (
     <div className="w-full">
       <div className="flex mt-1">
-        <ul className="w-full mx-auto flex gap-2 flex-wrap md:w-1/2">
+        <ul className="w-full mx-auto flex gap-2 flex-wrap lg:w-1/2">
           {profileTags.length > 0 ? (
             profileTags.map((e: string, idx: number) => {
               return (

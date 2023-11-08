@@ -65,9 +65,9 @@ const ProfileCard = () => {
   };
 
   return (
-    <div className="flex flex-col justify-around items-center bg-[#1a1a1a] py-4">
+    <div className="flex flex-col lg:flex-row justify-around items-center lg:items-start bg-[#1a1a1a] py-4">
       <div className="px-12">
-        <div className="flex flex-col items-center relative">
+        <div className="flex flex-col relative">
           <div
             onClick={() => {
               setFullScreenPic(!fullScreenPic);
@@ -97,16 +97,22 @@ const ProfileCard = () => {
         </div>
       </div>
 
-      <div className="text-center w-full">
-        <p className="font-semibold text-2xl my-3 text-white">
-          {session?.user?.name}
-        </p>
-        <ProfileStats />
-        <div className="mx-auto flex flex-col justify-center w-full">
-          <ProfileButtonsPanel />
-          <UserBio />
-          <div className="flex justify-center text-white">
-            <AdsSwitch />
+      <div className="text-center lg:text-left lg:flex lg:self-end lg:items-end lg:justify-between lg:ml-12 w-full">
+        <div>
+          <p className="font-semibold text-2xl my-3 text-white">
+            {session?.user?.name}
+          </p>
+          <ProfileStats />
+        </div>
+        <div className="mx-auto lg:mx-0 flex flex-col justify-center lg:self-end w-full lg:max-w-lg">
+          <div className="lg:hidden">
+            <ProfileButtonsPanel />
+          </div>
+          <div className="lg:hidden">
+            <UserBio />
+            <div className="flex justify-center text-white">
+              <AdsSwitch />
+            </div>
           </div>
         </div>
       </div>
