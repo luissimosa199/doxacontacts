@@ -1,6 +1,7 @@
 import React, { FunctionComponent, useEffect, useState } from "react";
 import UserFilter from "./UserFilter";
 import { useCategories } from "@/hooks/useCategories";
+import UserFilterContainerSkeleton from "./UserFilterContainerSkeleton";
 
 interface UserFilterContainerProps {
   setSelectedTags: React.Dispatch<React.SetStateAction<string[]>>;
@@ -17,7 +18,7 @@ const UserFilterContainer: FunctionComponent<UserFilterContainerProps> = ({
   filterByFavorites,
   setFilterOnline,
   selectedTags,
-  filterOnline
+  filterOnline,
 }) => {
   const [userTags, setUserTags] = useState<string[]>([]);
   const { data, isLoading, error } = useCategories("user");
@@ -29,7 +30,7 @@ const UserFilterContainer: FunctionComponent<UserFilterContainerProps> = ({
   }, [data]);
 
   if (isLoading) {
-    return <p>Cargando...</p>;
+    return <UserFilterContainerSkeleton />;
   }
 
   return (

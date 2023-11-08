@@ -1,21 +1,30 @@
 import React from "react";
+import UserFilterContainerSkeleton from "./UserFilterContainerSkeleton";
 
 const UserListSkeleton = () => {
   return (
-    <div className="mt-4 h-screen bg-white p-6 rounded-lg shadow-md">
+    <div
+      className={`mt-4 min-h-[130vh] bg-black p-6 rounded-lg shadow-md max-w-[450px] md:max-w-[850px] lg:max-w-4xl xl:max-w-6xl mx-auto`}
+    >
       <div className="w-full">
-        <div className="h-48 bg-gray-300 animate-pulse mb-4"></div>
+        <UserFilterContainerSkeleton />
 
-        <div className="p-2 mt-4 w-full border rounded" />
+        <div className="p-2 h-6 mt-4 w-full border rounded" />
       </div>
 
-      <ul className="divide-y divide-gray-200">
-        <li className="h-12 bg-gray-300 my-2 animate-pulse"></li>
-        <li className="h-12 bg-gray-300 my-2 animate-pulse"></li>
-        <li className="h-12 bg-gray-300 my-2 animate-pulse"></li>
-        <li className="h-12 bg-gray-300 my-2 animate-pulse"></li>
-        <li className="h-12 bg-gray-300 my-2 animate-pulse"></li>
-        <li className="h-12 bg-gray-300 my-2 animate-pulse"></li>
+      <ul className="flex flex-wrap gap-y-4 justify-around w-full">
+        <li className="h-[180px] w-[180px] bg-gray-300 my-2 animate-pulse"></li>
+        <li className="h-[180px] w-[180px] bg-gray-300 my-2 animate-pulse"></li>
+        <li className="h-[180px] w-[180px] bg-gray-300 my-2 animate-pulse"></li>
+        <li className="h-[180px] w-[180px] bg-gray-300 my-2 animate-pulse"></li>
+        <li className="h-[180px] w-[180px] bg-gray-300 my-2 animate-pulse"></li>
+        <li className="h-[180px] w-[180px] bg-gray-300 my-2 animate-pulse"></li>
+        <li className="h-[180px] w-[180px] bg-gray-300 my-2 animate-pulse"></li>
+        <li className="h-[180px] w-[180px] bg-gray-300 my-2 animate-pulse"></li>
+        <li className="h-[180px] w-[180px] bg-gray-300 my-2 animate-pulse"></li>
+        <li className="h-[180px] w-[180px] bg-gray-300 my-2 animate-pulse"></li>
+        <li className="h-[180px] w-[180px] bg-gray-300 my-2 animate-pulse"></li>
+        <li className="h-[180px] w-[180px] bg-gray-300 my-2 animate-pulse"></li>
       </ul>
     </div>
   );

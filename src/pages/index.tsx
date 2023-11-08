@@ -96,9 +96,6 @@ const Mainboard: FunctionComponent<MainboardProps> = ({ timelineData }) => {
 
   return (
     <>
-      <div className="text-center">
-        <ProfileButtonsPanel />
-      </div>
       <div className="text-center max-w-[850px] mx-auto flex flex-col mb-4">
         <input
           placeholder="Buscar por categoría"
