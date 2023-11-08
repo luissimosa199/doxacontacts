@@ -14,7 +14,7 @@ const UserFilterElement: FunctionComponent<UserFilterElementProps> = ({
   return (
     <li
       key={tag}
-      className="flex items-center justify-center bg-[#1a1a1a] border border-[#3a3a3a] w-1/2 h-16"
+      className="flex items-center justify-center bg-[#1a1a1a] border border-[#3a3a3a] w-1/2 h-12"
     >
       <label
         htmlFor={tag}

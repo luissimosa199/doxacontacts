@@ -22,12 +22,12 @@ const UserFilter = ({
   filterOnline: boolean;
 }) => {
   return (
-    <div className="p-4 bg-black">
+    <div className="bg-black">
       <h3 className="font-semibold text-lg mb-4 text-white">
         Filtrar por categoría
       </h3>
       <ul className="flex flex-wrap">
-        <li className="flex items-center justify-center bg-[#1a1a1a] border border-[#3a3a3a] w-1/2 h-16">
+        <li className="flex items-center justify-center bg-[#1a1a1a] border border-[#3a3a3a] w-1/2 h-12">
           <button
             aria-label="Toggle favorite filter"
             onClick={() => setFilterByFavorites((prev) => !prev)}
@@ -55,7 +55,7 @@ const UserFilter = ({
           </button>
         </li>
 
-        <li className="flex items-center justify-center bg-[#1a1a1a] border border-[#3a3a3a] w-1/2 h-16">
+        <li className="flex items-center justify-center bg-[#1a1a1a] border border-[#3a3a3a] w-1/2 h-12">
           <label
             htmlFor="online"
             className={`flex justify-center items-center capitalize w-full h-full cursor-pointer ${

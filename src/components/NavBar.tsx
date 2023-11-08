@@ -26,18 +26,18 @@ const Navbar = () => {
         <p className="text-3xl text-center">{session?.user?.name}</p>
       </div>
 
-      <div className="flex gap-1 md:gap-2 items-center justify-end w-1/3">
+      <div className="flex gap-1 md:gap-2 items-center justify-end w-fit">
         {session ? (
-          <div className="w-[60px] h-[60px]">
+          <div className="w-[40px] h-[40px]">
             <ProfilePicture
               type="user"
-              w="w-[60px]"
-              h="h-[60px]"
+              w="w-[40px]"
+              h="h-[40px]"
             />
           </div>
         ) : (
           <Link href="/login">
-            <p className="text-3xl text-white">Iniciar Sesion</p>
+            <p className="text-md text-white">Iniciar Sesion</p>
           </Link>
         )}
 

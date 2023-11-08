@@ -4,7 +4,7 @@ import UserFilterContainerSkeleton from "./UserFilterContainerSkeleton";
 const UserListSkeleton = () => {
   return (
     <div
-      className={`mt-4 min-h-[130vh] bg-black p-6 rounded-lg shadow-md max-w-[450px] md:max-w-[850px] lg:max-w-4xl xl:max-w-6xl mx-auto`}
+      className={`min-h-[130vh] bg-black rounded-lg shadow-md max-w-[450px] md:max-w-[850px] lg:max-w-4xl xl:max-w-6xl mx-auto`}
     >
       <div className="w-full">
         <UserFilterContainerSkeleton />

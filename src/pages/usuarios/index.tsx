@@ -101,23 +101,10 @@ const Usuarios = () => {
 
   return (
     <div
-      className={`mt-4 min-h-[130vh] bg-black p-6 rounded-lg shadow-md max-w-[450px] md:max-w-[850px] lg:max-w-4xl xl:max-w-6xl mx-auto`}
+      className={`min-h-[130vh] bg-black px-6  rounded-lg shadow-md max-w-[450px] md:max-w-[850px] lg:max-w-4xl xl:max-w-6xl mx-auto`}
     >
-      <div className="flex gap-2">
-        <button
-          onClick={() => {
-            router.back();
-          }}
-        >
-          <FontAwesomeIcon
-            className="w-6 h-6"
-            icon={faArrowLeft}
-          />
-        </button>
-        <h2>Volver</h2>
-      </div>
       <div className="w-full mb-4">
-        <div className="my-4">
+        <div className="">
           <UserFilterContainer
             filterByFavorites={filterByFavorites}
             setFilterByFavorites={setFilterByFavorites}
