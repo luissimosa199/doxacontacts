@@ -20,7 +20,7 @@ const ProfileStats = () => {
   if (isLoading) {
     return (
       <div>
-        <p className="italic text-gray-600">Cargando estadísticas...</p>
+        <p className="text-white">Cargando estadísticas...</p>
       </div>
     );
   }
@@ -28,16 +28,22 @@ const ProfileStats = () => {
   if (error) {
     return (
       <div>
-        <p className="italic text-gray-600">Error: {JSON.stringify(error)}</p>
+        <p className="text-white">Error: {JSON.stringify(error)}</p>
+      </div>
+    );
+  }
+
+  if (!data.visitsCount) {
+    return (
+      <div>
+        <p className="text-white">No hay visitas en tu perfil</p>
       </div>
     );
   }
 
   return (
     <div>
-      <p className="italic text-gray-600">
-        Visitas a tu perfil: {data.visitsCount}
-      </p>
+      <p className="text-white">Visitas a tu perfil: {data.visitsCount}</p>
     </div>
   );
 };

@@ -15,9 +15,7 @@ const ToggleButon: FunctionComponent<ToggleButonProps> = ({
 }) => {
   return (
     <button
-      className={`border-2 w-10 rounded p-2 ${
-        state ? "bg-gray-200" : "bg-white"
-      } text-slate-600 transition`}
+      className={`rounded p-2 text-[#f90] transition`}
       onClick={(e) => {
         e.preventDefault();
         setState(!state);

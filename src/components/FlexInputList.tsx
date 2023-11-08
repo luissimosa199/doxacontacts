@@ -70,7 +70,7 @@ const InputList: FunctionComponent<InputListProps> = ({
   placeholder,
   type,
   showState,
-  primaryColor = "blue",
+  primaryColor = "yellow",
   modelType,
 }) => {
   const [inputText, setInputText] = useState("");

@@ -1,17 +1,19 @@
 import {
+  faShareNodes,
   faStethoscope,
   faUsers,
   faVideo,
 } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import React, { FunctionComponent } from "react";
 
 const buttons = [
   {
-    icon: faStethoscope,
-    href: "videocall",
-    name: "Iniciar consulta",
-    color: "bg-sky-400",
+    icon: faShareNodes,
+    href: "/",
+    name: "Compartir",
+    color: "bg-violet-400",
   },
   {
     icon: faUsers,
@@ -29,14 +31,23 @@ const buttons = [
 
 const ProfileButtonsPanel: FunctionComponent = () => {
   return (
-    <ul>
+    <ul className="flex justify-around my-4">
       {buttons.map((e, idx) => {
         return (
           <li
             key={idx}
-            className="underline text-lg mb-2 text-white hover:opacity-70"
+            className="w-28 h-20 text-gray-300 hover:opacity-70"
           >
-            <Link href={e.href}>{e.name}</Link>
+            <Link
+              className="flex flex-col justify-center items-center"
+              href={e.href}
+            >
+              <FontAwesomeIcon
+                size="2x"
+                icon={e.icon}
+              />
+              <span>{e.name}</span>
+            </Link>
           </li>
         );
       })}

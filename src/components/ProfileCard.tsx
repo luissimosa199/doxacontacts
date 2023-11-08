@@ -7,7 +7,7 @@ import PhotoInput from "./PhotoInput";
 import AdsSwitch from "./AdsSwitch";
 import ProfileButtonsPanel from "./ProfileButtonsPanel";
 import ProfileStats from "./ProfileStats";
-import ProfileCategories from "./ProfileCategories";
+import UserBio from "./UserBio";
 
 const ProfileCard = () => {
   const [fullScreenPic, setFullScreenPic] = useState<boolean>(false);
@@ -65,9 +65,9 @@ const ProfileCard = () => {
   };
 
   return (
-    <div className="flex flex-col justify-around items-center rounded-lg p-6 bg-[#1a1a1a] shadow-lg">
+    <div className="flex flex-col justify-around items-center bg-[#1a1a1a] py-4">
       <div className="px-12">
-        <div className="flex flex-col items-center relative ">
+        <div className="flex flex-col items-center relative">
           <div
             onClick={() => {
               setFullScreenPic(!fullScreenPic);
@@ -75,18 +75,18 @@ const ProfileCard = () => {
             className={`${
               fullScreenPic
                 ? "w-screen h-screen absolute z-50"
-                : "w-[300px] h-[300px]"
+                : "w-[150px] h-[150px]"
             }`}
           >
             <ProfilePicture
               fullScreenPic={fullScreenPic}
               type="user"
-              w={`${fullScreenPic ? "w-full" : "w-[300px]"}`}
-              h={`${fullScreenPic ? "h-full" : "h-[300px]"}`}
+              w={`${fullScreenPic ? "w-full" : "w-[150px]"}`}
+              h={`${fullScreenPic ? "h-full" : "h-[150px]"}`}
             />
           </div>
           {!fullScreenPic && (
-            <div className=" border-2 absolute bottom-2 left-2 bg-white h-12 w-12 rounded-full overflow-hidden flex justify-center">
+            <div className="absolute right-0 bg-[#1a1a1a] bottom-0 h-8 w-8 pb-2 pr-0.5 rounded-full overflow-hidden flex justify-center items-center">
               <PhotoInput
                 handleUploadImages={handleChangeAvatar}
                 variant="small"
@@ -98,13 +98,13 @@ const ProfileCard = () => {
       </div>
 
       <div className="text-center w-full">
-        <p className="font-bold text-2xl my-3 text-white">
+        <p className="font-semibold text-2xl my-3 text-white">
           {session?.user?.name}
         </p>
-        <ProfileCategories username={session?.user?.email as string} />
         <ProfileStats />
-        <div className="mx-auto flex flex-col justify-center max-[443px]:max-w-[11rem] min-[443px]:max-w-[20.7rem] min-[616px]:max-w-[30.5rem]">
+        <div className="mx-auto flex flex-col justify-center w-full">
           <ProfileButtonsPanel />
+          <UserBio />
           <div className="flex justify-center text-white">
             <AdsSwitch />
           </div>

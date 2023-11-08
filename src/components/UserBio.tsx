@@ -2,11 +2,13 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import React, { ChangeEvent, useCallback, useState } from "react";
 import ToggleButon from "./ToggleButton";
-import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { debounce } from "lodash";
+import ProfileCategories from "./ProfileCategories";
 
 const UserBio = () => {
   const [showBioInput, toggleBioInput] = useState<boolean>(false);
+  const [profileTags, setProfileTags] = useState<string[]>([]);
   const { data: session } = useSession();
   const queryClient = useQueryClient();
 
@@ -63,15 +65,19 @@ const UserBio = () => {
   const { data, isLoading } = useQuery(["userBio"], getBio);
 
   return (
-    <>
-      <div className="border-b-2 flex gap-2 items-center mb-6 pb-2">
-        <h2 className="text-2xl font-semibold text-white">Sobre mi</h2>
-        <ToggleButon
-          state={showBioInput}
-          setState={toggleBioInput}
-          icon={faPenToSquare}
+    <div className="flex flex-col gap-2 items-start mb-6 p-2">
+      <h2 className="text-2xl font-semibold text-white">
+        Sobre {session?.user?.name}
+      </h2>
+      <div className="flex gap-2 w-full">
+        <h3 className="text-white mt-2">Categorías: </h3>
+        <ProfileCategories
+          username={session?.user?.email as string}
+          setProfileTags={setProfileTags}
+          profileTags={profileTags}
         />
       </div>
+
       {isLoading ? (
         <p className="text-lg">Cargando...</p>
       ) : showBioInput ? (
@@ -83,7 +89,23 @@ const UserBio = () => {
       ) : (
         <p className="text-lg text-gray-300">{data.bio}</p>
       )}
-    </>
+
+      <div className="flex items-center">
+        <ToggleButon
+          state={showBioInput}
+          setState={toggleBioInput}
+          icon={faPlus}
+        />
+        <span
+          className="text-[#f90] cursor-pointer"
+          onClick={() => {
+            toggleBioInput((prev) => !prev);
+          }}
+        >
+          Háblanos de ti
+        </span>
+      </div>
+    </div>
   );
 };
 

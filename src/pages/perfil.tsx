@@ -24,8 +24,8 @@ const Profile = () => {
   if (session && session.user) {
     return (
       <>
-        <div className="p-8 bg-[#3a3a3a] space-y-12">
-          <div className="flex gap-2 items-center justify-between">
+        <div className="bg-[#3a3a3a] space-y-12">
+          {/* <div className="flex gap-2 items-center justify-between">
             <div className="flex items-center gap-2 text-white">
               <Link href="/">
                 <FontAwesomeIcon icon={faArrowLeft} />
@@ -34,11 +34,9 @@ const Profile = () => {
                 Perfil
               </h1>
             </div>
-          </div>
+          </div> */}
           <ProfileCard />
-          <div className="mt-4">
-            <UserBio />
-          </div>
+
           <UserPhotoGallery />
           <div className="mt-6">
             <h2 className="text-2xl font-semibold mb-6 border-b-2 pb-2 text-white">
