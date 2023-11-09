@@ -1,7 +1,7 @@
 import { TimelineFormInputs } from "@/types";
 import formatDateString from "@/utils/formatDateString";
 import { CldImage } from "next-cloudinary";
-import { FunctionComponent, useRef } from "react";
+import { FunctionComponent } from "react";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 
@@ -12,8 +12,6 @@ interface LastTenUserTimelineProps {
 const LastTenUserTimeline: FunctionComponent<LastTenUserTimelineProps> = ({
   username,
 }) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-
   const fetchUserTimelines = async () => {
     const response = await fetch(
       `/api/user/timelines/?username=${encodeURIComponent(username)}&page=0`,
@@ -32,29 +30,10 @@ const LastTenUserTimeline: FunctionComponent<LastTenUserTimelineProps> = ({
 
   if (isLoading) {
     return (
-      <div className="mt-4 bg-white p-6 rounded-lg shadow-md animate-pulse">
-        <ul className="divide-y divide-gray-200">
-          {[...Array(3)].map((_, index) => (
-            <li
-              key={index}
-              className="py-4 space-y-4"
-            >
-              <div className="h-4 bg-gray-300 w-1/3"></div>
-
-              <div className="h-6 bg-gray-300 w-2/3 my-2"></div>
-
-              <div className="flex gap-2">
-                <div className="w-32 h-32 bg-gray-300 rounded"></div>
-                <div className="w-32 h-32 bg-gray-300 rounded"></div>
-              </div>
-
-              <div className="flex flex-col gap-2">
-                <div className="p-4 bg-gray-300 rounded-lg"></div>
-                <div className="p-4 bg-gray-300 rounded-lg"></div>
-              </div>
-            </li>
-          ))}
-        </ul>
+      <div className="bg-black mx-auto flex gap-2 justify-center items-center flex-wrap max-w-5xl">
+        <div className="w-[330px] h-[450px] bg-gray-300 animate-pulse"></div>
+        <div className="w-[330px] h-[450px] bg-gray-300 animate-pulse"></div>
+        <div className="w-[330px] h-[450px] bg-gray-300 animate-pulse"></div>
       </div>
     );
   }
@@ -62,13 +41,6 @@ const LastTenUserTimeline: FunctionComponent<LastTenUserTimelineProps> = ({
   if (isError) {
     return <div>Error</div>;
   }
-
-  const handleNextPhoto = () => {
-    console.log(containerRef.current);
-    if (containerRef.current) {
-      containerRef.current.scrollLeft += 400;
-    }
-  };
 
   return (
     <>
@@ -96,7 +68,6 @@ const LastTenUserTimeline: FunctionComponent<LastTenUserTimelineProps> = ({
               >
                 {e.photo && e.photo.length > 0 && (
                   <div
-                    ref={containerRef}
                     className={`flex flex-col w-full h-full lg:flex-row gap-2 lg:overflow-x-auto ${
                       e.photo.length > 1 ? "scrollbarstyle" : ""
                     }`}

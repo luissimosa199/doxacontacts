@@ -81,19 +81,12 @@ const UserPhotos: FunctionComponent<UserPhotosProps> = ({
 
   if (isLoading) {
     return (
-      <div
-        className="flex container space-x-2 md:space-x-4 overflow-x-auto py-12 px-2 whitespace-nowrap mb-4 animate-pulse"
-        style={{
-          scrollbarWidth: "thin",
-          scrollbarColor: "rgba(155, 155, 155, 0.7) transparent",
-        }}
-      >
-        {[...Array(5)].map((_, index) => (
-          <div
-            key={index}
-            className="relative inline-block w-24 h-24 md:w-32 md:h-32 flex-shrink-0 bg-gray-300 rounded-md"
-          ></div>
-        ))}
+      <div className="flex flex-col lg:flex-row lg:max-w-5xl gap-2 mx-auto flex-wrap justify-center items-center">
+        <div className="w-screen lg:w-[300px] h-[520px] lg:h-[350px] bg-gray-300 animate-pulse"></div>
+        <div className="w-screen lg:w-[300px] h-[520px] lg:h-[350px] bg-gray-300 animate-pulse"></div>
+        <div className="w-screen lg:w-[300px] h-[520px] lg:h-[350px] bg-gray-300 animate-pulse"></div>
+        <div className="w-screen lg:w-[300px] h-[520px] lg:h-[350px] bg-gray-300 animate-pulse"></div>
+        <div className="w-screen lg:w-[300px] h-[520px] lg:h-[350px] bg-gray-300 animate-pulse"></div>
       </div>
     );
   }
