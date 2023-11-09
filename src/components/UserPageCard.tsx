@@ -3,8 +3,13 @@ import UserBio from "./UserBio";
 import UserButtonsPanel from "./UserButtonsPanel";
 import UserPicture from "./UserPicture";
 import { User } from "@/types";
+import { useFavorite } from "@/hooks/useFavorite";
 
 const UserPageCard = ({ userData }: { userData: User | null }) => {
+  const { isFavorite, mutation, isLoading } = useFavorite(
+    userData?.email as string
+  );
+
   return (
     <div className="flex flex-col lg:flex-row justify-around items-center lg:items-start bg-[#1a1a1a] py-4">
       <UserPicture
@@ -21,6 +26,9 @@ const UserPageCard = ({ userData }: { userData: User | null }) => {
         <div className="mx-auto lg:mx-0 flex flex-col justify-center lg:self-end w-full lg:max-w-lg">
           <div className="lg:hidden">
             <UserButtonsPanel
+              isFavorite={isFavorite}
+              mutation={mutation}
+              isLoading={isLoading}
               key="1"
               username={userData?.email as string}
             />

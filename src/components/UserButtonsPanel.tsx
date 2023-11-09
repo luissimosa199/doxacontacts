@@ -1,8 +1,9 @@
 import { faDollarSign, faMessage } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import React from "react";
+import React, { FunctionComponent } from "react";
 import UserFavButton from "./UserFavButton";
+import { UseMutationResult } from "@tanstack/react-query";
 
 const buttons = [
   {
@@ -19,12 +20,38 @@ const buttons = [
   },
 ];
 
-const UserButtonsPanel = ({ username }: { username: string }) => {
+interface UserButtonsPanelProps {
+  username: string;
+  isLoading: boolean;
+  isFavorite: boolean | null;
+  mutation: UseMutationResult<
+    any,
+    unknown,
+    {
+      email: string;
+      method: "DELETE" | "POST";
+    },
+    {
+      previousFavorites: string[];
+    }
+  >;
+}
+
+const UserButtonsPanel: FunctionComponent<UserButtonsPanelProps> = ({
+  username,
+  isLoading,
+  isFavorite,
+  mutation,
+}) => {
   return (
     <ul className="flex justify-around my-4 lg:my-0 lg:gap-2">
       <li className="w-28 h-20 lg:h-fit lg:w-fit lg:rounded-lg lg:px-4 text-gray-300 lg:bg-[#3a3a3a] active:hover:opacity-70 lg:hover:opacity-70">
         <div className="flex flex-col lg:flex-row lg:gap-2 justify-center items-center">
           <UserFavButton
+            isFavorite={isFavorite}
+            mutation={mutation}
+            isLoading={isLoading}
+            key="1"
             size="2x"
             username={username}
             showSpan={true}

@@ -1,31 +1,34 @@
-import { toggleFavorite } from "@/utils/toggleFavorite";
-import {
-  faMedal,
-  faMessage,
-  faStar,
-  faVideoCamera,
-} from "@fortawesome/free-solid-svg-icons";
-import { faStar as farStar } from "@fortawesome/free-regular-svg-icons";
+import { faMessage, faVideoCamera } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import React from "react";
 import UserFavButton from "./UserFavButton";
+import { useFavorite } from "@/hooks/useFavorite";
 
 const UserCardButtons = ({
   username,
-  email,
+  favoritesLoading,
+  isFavorite,
 }: {
   username: string;
-  email: string;
+  favoritesLoading: boolean;
+  isFavorite: boolean;
 }) => {
   const router = useRouter();
   const { data: session } = useSession();
 
+  const { mutation } = useFavorite(username);
+
   return (
     <div className="flex gap-2 w-full justify-around">
-      <UserFavButton username={email} />
+      <UserFavButton
+        key="2"
+        username={username}
+        isFavorite={isFavorite}
+        mutation={mutation}
+        isLoading={favoritesLoading}
+      />
       <button
         className="hover:text-green-500 transition w-6"
         onClick={(e) => {

@@ -3,65 +3,37 @@ import { faStar as farStar } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import React from "react";
 import { SizeProp } from "@fortawesome/fontawesome-svg-core";
-import { toggleFavorite } from "@/utils/toggleFavorite";
+import { UseMutationResult } from "@tanstack/react-query";
 
 const UserFavButton = ({
   username,
   size = "lg",
   showSpan = false,
+  isFavorite,
+  mutation,
+  isLoading,
 }: {
   username: string;
   size?: SizeProp;
   showSpan?: boolean;
+  isFavorite: boolean | null;
+  mutation: UseMutationResult<
+    any,
+    unknown,
+    {
+      email: string;
+      method: "DELETE" | "POST";
+    },
+    {
+      previousFavorites: string[];
+    }
+  >;
+  isLoading: boolean;
 }) => {
-  const [isFavorite, setIsFavorite] = useState<boolean | null>(null);
   const { data: session } = useSession();
   const router = useRouter();
-
-  const { isLoading } = useQuery(["favorites", username], async () => {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/favorites`
-    );
-    if (response.ok) {
-      const data = await response.json();
-      setIsFavorite(data.includes(username));
-      return data;
-    }
-  });
-
-  const queryClient = useQueryClient();
-
-  const mutation = useMutation(toggleFavorite, {
-    onMutate: ({ email, method }) => {
-      queryClient.cancelQueries(["favorites", username]);
-      const previousFavorites =
-        queryClient.getQueryData<string[]>(["favorites", username]) || [];
-
-      if (Array.isArray(previousFavorites)) {
-        if (method === "DELETE") {
-          queryClient.setQueryData(
-            ["favorites", username],
-            previousFavorites.filter((fav) => fav !== email)
-          );
-
-          setIsFavorite(false);
-        } else {
-          queryClient.setQueryData(
-            ["favorites", username],
-            [...previousFavorites, email]
-          );
-          setIsFavorite(true);
-        }
-      }
-      return { previousFavorites };
-    },
-    onSettled: () => {
-      queryClient.invalidateQueries(["favorites", username]);
-    },
-  });
 
   return (
     <div

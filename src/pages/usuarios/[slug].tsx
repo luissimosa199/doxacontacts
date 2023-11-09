@@ -8,6 +8,7 @@ import ProfileTabs from "@/components/ProfileTabs";
 import UserPosts from "@/components/UserPosts";
 import UserPhotoGallery from "@/components/UserPhotoGallery";
 import UserPageCard from "@/components/UserPageCard";
+import { useFavorite } from "@/hooks/useFavorite";
 
 interface UserPageProps {
   userData: User | null;
@@ -15,6 +16,9 @@ interface UserPageProps {
 
 const User: FunctionComponent<UserPageProps> = ({ userData }) => {
   const [selectedTab, setSelectedTab] = useState<string>("fotos");
+  const { isFavorite, mutation, isLoading } = useFavorite(
+    userData?.email as string
+  );
 
   return (
     <div className="bg-[#3a3a3a] space-y-0">
@@ -27,6 +31,9 @@ const User: FunctionComponent<UserPageProps> = ({ userData }) => {
         />
         <div className="hidden lg:block">
           <UserButtonsPanel
+            isFavorite={isFavorite}
+            mutation={mutation}
+            isLoading={isLoading}
             key="2"
             username={userData?.email as string}
           />
