@@ -26,6 +26,10 @@ export default async function handler(
         .limit(perPage)
         .lean();
 
+      if (req.query.count) {
+        return res.status(200).json(response?.photos?.length || 0);
+      }
+
       if (response && !response.photos) {
         return res.status(200).json({ photos: [] });
       }
@@ -71,11 +75,9 @@ export default async function handler(
       ).select("photos");
 
       if (!updatedUser) {
-        return res
-          .status(404)
-          .json({
-            error: "User not found or photo not found in user's photo array",
-          });
+        return res.status(404).json({
+          error: "User not found or photo not found in user's photo array",
+        });
       }
 
       return res.status(200).json(updatedUser.photos);

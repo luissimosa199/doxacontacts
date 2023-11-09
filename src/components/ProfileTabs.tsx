@@ -10,8 +10,10 @@ const ProfileTabs = ({
   return (
     <ul className="flex gap-6 text-lg text-gray-400">
       <li
-        className={`cursor-pointer ${
-          selectedTab === "publicaciones" ? "border-b-2 border-[#f90]" : ""
+        className={`cursor-pointer px-4 py-2 ${
+          selectedTab === "publicaciones"
+            ? " bg-[#3a3a3a] rounded-full font-semibold text-white lg:bg-transparent lg:rounded-none lg:border-b-2 lg:border-[#f90] lg:text-gray-400"
+            : ""
         }`}
       >
         <button
@@ -23,8 +25,10 @@ const ProfileTabs = ({
         </button>
       </li>
       <li
-        className={`cursor-pointer ${
-          selectedTab === "fotos" ? "border-b-2 border-[#f90]" : ""
+        className={`cursor-pointer px-4 py-2 ${
+          selectedTab === "fotos"
+            ? "bg-[#3a3a3a] rounded-full font-semibold text-white lg:bg-transparent lg:rounded-none lg:border-b-2 lg:border-[#f90] lg:text-gray-400"
+            : ""
         }`}
       >
         <button

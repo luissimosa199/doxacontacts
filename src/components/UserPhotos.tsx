@@ -148,7 +148,7 @@ const UserPhotos: FunctionComponent<UserPhotosProps> = ({
                     controls
                     width="500"
                     height="500"
-                    className="rounded mx-auto"
+                    className="mx-auto"
                   >
                     <source
                       src={e}
@@ -162,7 +162,7 @@ const UserPhotos: FunctionComponent<UserPhotosProps> = ({
                     src={e}
                     width={850}
                     height={850}
-                    className="object-cover rounded-md shadow"
+                    className="object-cover"
                   />
                 )}
               </div>

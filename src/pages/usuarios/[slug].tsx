@@ -17,18 +17,20 @@ const User: FunctionComponent<UserPageProps> = ({ userData }) => {
   const [selectedTab, setSelectedTab] = useState<string>("fotos");
 
   return (
-    <div className="bg-[#3a3a3a] space-y-12 lg:space-y-0">
+    <div className="bg-[#3a3a3a] space-y-0">
       <UserPageCard userData={userData} />
 
-      <div className="hidden bg-black p-2 lg:flex py-4 justify-between">
+      <div className="bg-black p-2 lg:flex py-4 justify-between">
         <ProfileTabs
           setSelectedTab={setSelectedTab}
           selectedTab={selectedTab}
         />
-        <UserButtonsPanel
-          key="2"
-          username={userData?.email as string}
-        />
+        <div className="hidden lg:block">
+          <UserButtonsPanel
+            key="2"
+            username={userData?.email as string}
+          />
+        </div>
       </div>
 
       {(() => {
