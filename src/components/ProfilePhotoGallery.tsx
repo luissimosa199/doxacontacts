@@ -110,16 +110,16 @@ const ProfilePhotoGallery: FunctionComponent = () => {
   };
 
   return (
-    <div>
-      <h2 className="text-2xl font-semibold mb-6 text-white border-b-2 pb-2">
-        Fotos
-      </h2>
-      <UserPhotos username={session!.user!.email as string} />
-      <PhotoInput
-        handleUploadImages={handleUploadImages}
-        id="userphotos"
-        variant="small"
-      />
+    <div className="bg-black">
+      <div className="flex gap-2 items-center">
+        <h2 className="text-2xl font-semibold text-white pb-2">Fotos</h2>
+        <PhotoInput
+          handleUploadImages={handleUploadImages}
+          id="userphotos"
+          variant="small"
+          label="Subir fotos"
+        />
+      </div>
 
       <div className="mt-4 space-y-4">
         {newImages &&
@@ -161,14 +161,17 @@ const ProfilePhotoGallery: FunctionComponent = () => {
             );
           })}
       </div>
-      <button
-        type="button"
-        onClick={handleSubmit}
-        disabled={isUploading}
-        className="mt-4 py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-300"
-      >
-        {isUploading ? "Subiendo..." : "Subir"}
-      </button>
+      {newImages.length > 0 && (
+        <button
+          type="button"
+          onClick={handleSubmit}
+          disabled={isUploading}
+          className="mt-4 py-2 px-4 bg-[#3b3b3b] text-[#f90] font-semibold rounded-full lg:hover:bg-orange-600 hover:text-white active:text-white active:bg-orange-600 transition duration-300"
+        >
+          {isUploading ? "Subiendo..." : "Subir"}
+        </button>
+      )}
+      <UserPhotos username={session!.user!.email as string} />
     </div>
   );
 };

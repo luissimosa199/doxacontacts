@@ -1,5 +1,5 @@
 import { TimelineFormInputs } from "@/types";
-import { faUpload } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faUpload } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ChangeEvent, FunctionComponent } from "react";
 import { UseFormRegister } from "react-hook-form";
@@ -15,30 +15,20 @@ interface PhotoInput {
 const PhotoInput: FunctionComponent<PhotoInput> = ({
   handleUploadImages,
   register,
-  label = "Fotos y/o videos: ",
+  label,
   variant = "default",
   id = "photo",
 }) => {
-  // Add id to props destructuring
-  const isSmall = variant === "small";
-
   return (
     <label
       htmlFor={id}
-      className={`relative flex flex-col items-center justify-center p-4 border rounded hover:bg-gray-200 cursor-pointer ${
-        isSmall ? "p-2" : ""
-      }`}
+      className={`w-fit h-fit relative flex gap-2 items-center justify-center cursor-pointer`}
     >
       <i
-        className={`mb-2 w-4 h-4 text-lg text-gray-500 ${
-          isSmall ? "text-base mb-1" : ""
-        }`}
+        className={`w-4 h-4 text-lg text-[#f90] flex justify-center items-center`}
       >
-        <FontAwesomeIcon icon={faUpload} />
+        <FontAwesomeIcon icon={faPlus} />
       </i>
-      {isSmall ? null : (
-        <span className="mb-2 text-lg font-semibold">{label}</span>
-      )}
       <input
         accept="image/png, image/jpeg, video/mp4"
         className="absolute opacity-0 w-0 h-0"
@@ -48,9 +38,7 @@ const PhotoInput: FunctionComponent<PhotoInput> = ({
         {...(register ? register("photo") : {})}
         onChange={handleUploadImages}
       />
-      {isSmall ? null : (
-        <span className="text-gray-500">Arrastrá o clickea</span>
-      )}
+      {label && <span className="text-[#f90] font-semibold">{label}</span>}
     </label>
   );
 };

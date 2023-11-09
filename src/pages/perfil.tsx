@@ -19,15 +19,17 @@ const Profile = () => {
 
   if (session && session.user) {
     return (
-      <div className="bg-[#3a3a3a] space-y-12 lg:space-y-0">
+      <div className="bg-[#3a3a3a] space-y-0">
         <ProfileCard />
 
-        <div className="hidden bg-black p-2 lg:flex py-4 justify-between">
+        <div className="bg-black p-2 py-4 lg:flex justify-between">
           <ProfileTabs
             setSelectedTab={setSelectedTab}
             selectedTab={selectedTab}
           />
-          <ProfileButtonsPanel />
+          <div className="hidden lg:block">
+            <ProfileButtonsPanel />
+          </div>
         </div>
 
         {(() => {

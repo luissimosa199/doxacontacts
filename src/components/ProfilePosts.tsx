@@ -9,14 +9,17 @@ const ProfilePosts = () => {
   const { data: session } = useSession();
 
   return (
-    <div className="mt-6">
-      <h2 className="text-2xl font-semibold mb-6 border-b-2 pb-2 text-white">
-        Últimas publicaciones
-      </h2>
-      <ToggleButon
-        state={addNewTimeline}
-        setState={setAddNewTimeline}
-      />
+    <div className="mt-6 bg-black">
+      <div className="flex items-center">
+        <h2 className="text-2xl font-semibold pb-2 text-white">
+          Últimas publicaciones
+        </h2>
+        <ToggleButon
+          state={addNewTimeline}
+          setState={setAddNewTimeline}
+          label="Nueva publicación"
+        />
+      </div>
       {addNewTimeline && <PrimaryForm />}
 
       <LastTenUserTimeline username={session?.user?.email as string} />
