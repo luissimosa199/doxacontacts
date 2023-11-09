@@ -9,7 +9,7 @@ const UserListSkeleton = () => {
       <div className="w-full">
         <UserFilterContainerSkeleton />
 
-        <div className="p-2 h-6 mt-4 w-full border rounded" />
+        <div className="p-2 h-10 mt-4 w-full border rounded" />
       </div>
 
       <ul className="flex flex-wrap gap-y-4 justify-around w-full">

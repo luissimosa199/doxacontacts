@@ -3,8 +3,8 @@ import LastTenUserTimeline from "./LastTenUserTimeline";
 
 const UserPosts = ({ username }: { username: string }) => {
   return (
-    <div className="mt-6">
-      <h2 className="text-2xl font-semibold mb-6 border-b-2 pb-2 text-white">
+    <div className="mt-6 bg-black">
+      <h2 className="text-2xl font-semibold text-white ml-2">
         Últimas publicaciones
       </h2>
 
