@@ -116,7 +116,7 @@ const UserPhotos: FunctionComponent<UserPhotosProps> = ({
                 }
             `}</style>
       <div
-        className={`w-full flex ${direction} gap-2 items-center scrollbarstyle overflow-x-auto whitespace-nowrap mb-4`}
+        className={`w-full flex flex-col mx-auto lg:flex-row items-center lg:justify-center flex-wrap gap-2 scrollbarstyle whitespace-nowrap mb-4`}
         style={{
           scrollbarWidth: "thin",
           scrollbarColor: "rgba(155, 155, 155, 0.7) transparent",
@@ -130,7 +130,7 @@ const UserPhotos: FunctionComponent<UserPhotosProps> = ({
             return (
               <div
                 key={e}
-                className="relative max-w-[500px] flex-shrink-0"
+                className="relative w-fit lg:w-1/4 flex-shrink-0"
               >
                 {session?.user?.email === username && (
                   <button
