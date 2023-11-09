@@ -37,8 +37,6 @@ export default async function handler(
           .json({ message: "No update needed", online: user.online });
       }
 
-      console.log("userUpdated: ONLINE: ", online);
-
       const updatedUser = await UserModel.findOneAndUpdate(
         { email: session?.user?.email },
         { $set: { online } },

@@ -35,7 +35,7 @@ const UserFilter = ({
               filterByFavorites
                 ? "text-yellow-500 sm:hover:text-black"
                 : "text-black active:text-yellow-500 sm:hover:text-yellow-500"
-            } cursor-pointer p-2 w-full h-full`}
+            } cursor-pointer p-2 w-full h-full flex justify-center items-center`}
           >
             <FontAwesomeIcon
               size="lg"
