@@ -49,7 +49,7 @@ const Usuarios = () => {
     data: favorites,
     isLoading: favoritesLoading,
   }: { data: string[] | undefined; isLoading: boolean } = useQuery(
-    ["favorites"],
+    ["favorites", "all"],
     async () => {
       if (!session) {
         return [];

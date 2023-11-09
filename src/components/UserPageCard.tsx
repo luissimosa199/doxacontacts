@@ -20,7 +20,10 @@ const UserPageCard = ({ userData }: { userData: User | null }) => {
         </div>
         <div className="mx-auto lg:mx-0 flex flex-col justify-center lg:self-end w-full lg:max-w-lg">
           <div className="lg:hidden">
-            <UserButtonsPanel username={userData?.email as string} />
+            <UserButtonsPanel
+              key="1"
+              username={userData?.email as string}
+            />
           </div>
           <div className="lg:hidden">
             <UserBio

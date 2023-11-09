@@ -25,7 +25,10 @@ const User: FunctionComponent<UserPageProps> = ({ userData }) => {
           setSelectedTab={setSelectedTab}
           selectedTab={selectedTab}
         />
-        <UserButtonsPanel username={userData?.email as string} />
+        <UserButtonsPanel
+          key="2"
+          username={userData?.email as string}
+        />
       </div>
 
       {(() => {
