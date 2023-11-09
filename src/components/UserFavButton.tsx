@@ -28,7 +28,6 @@ const UserFavButton = ({
     if (response.ok) {
       const data = await response.json();
       setIsFavorite(data.includes(username));
-      console.log(data.includes(username));
       return data;
     }
   });

@@ -60,8 +60,6 @@ export const getServerSideProps = async (
       .select("name email image photos bio slug tags")
       .lean();
 
-    console.log("@user>slug", user);
-
     if (user) {
       const userData = {
         name: user.name,
