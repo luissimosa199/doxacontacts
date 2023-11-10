@@ -128,7 +128,7 @@ const ProfilePhotoGallery: FunctionComponent = () => {
             return (
               <div
                 key={index}
-                className="flex items-center gap-4 bg-gray-100 p-4 rounded-md"
+                className="flex items-center gap-4 px-4"
               >
                 <button
                   onClick={handleDeleteImage(index)}
