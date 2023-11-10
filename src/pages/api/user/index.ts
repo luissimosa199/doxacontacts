@@ -14,7 +14,7 @@ export default async function handler(
 
   try {
     if (req.method === "GET") {
-      const { name, tags } = req.query;
+      const { name, tags, username } = req.query;
 
       let query: any = {};
 
@@ -24,6 +24,10 @@ export default async function handler(
 
       if (name) {
         query.name = new RegExp(`^${name}`, "i");
+      }
+
+      if (username) {
+        query.email = username;
       }
 
       if (tags) {

@@ -1,32 +1,25 @@
-import TimeLine from '@/components/TimeLine';
-import UserCard from '@/components/UserCard';
-import dbConnect from '@/db/dbConnect';
-import { TimeLineModel } from '@/db/models';
-import { TimelineFormInputs } from '@/types';
-import { GetServerSideProps, GetServerSidePropsContext } from 'next';
-import Link from 'next/link';
-import { FunctionComponent } from 'react';
+import TimeLine from "@/components/TimeLine";
+import UserCard from "@/components/UserCard";
+import dbConnect from "@/db/dbConnect";
+import { TimeLineModel } from "@/db/models";
+import { TimelineFormInputs } from "@/types";
+import { GetServerSideProps, GetServerSidePropsContext } from "next";
+import Link from "next/link";
+import { FunctionComponent } from "react";
 
 interface TimelinePageProps {
   timelineData: TimelineFormInputs | null;
 }
 
-const TimelinePage: FunctionComponent<TimelinePageProps> = ({ timelineData }) => {
+const TimelinePage: FunctionComponent<TimelinePageProps> = ({
+  timelineData,
+}) => {
   if (!timelineData) {
     return <div>Timeline not found</div>;
   }
 
   return (
     <>
-      <div className="border flex justify-center items-center">
-        <Link className="text-xs" href="/">Volver</Link>
-        <h1 className="text-xl text-center font-bold m-4">Nota</h1>
-      </div>
-      <UserCard
-        imageSrc="/noprofile.png"
-        name="Anonimo"
-        description="Sin descripcion"
-      />
       <div>
         <div key={timelineData._id}>
           <TimeLine
@@ -49,7 +42,9 @@ const TimelinePage: FunctionComponent<TimelinePageProps> = ({ timelineData }) =>
 
 export default TimelinePage;
 
-export const getServerSideProps: GetServerSideProps<TimelinePageProps> = async (context: GetServerSidePropsContext) => {
+export const getServerSideProps: GetServerSideProps<TimelinePageProps> = async (
+  context: GetServerSidePropsContext
+) => {
   try {
     await dbConnect();
 
@@ -77,9 +72,11 @@ export const getServerSideProps: GetServerSideProps<TimelinePageProps> = async (
       photo: timeline.photo,
       createdAt: timeline.createdAt.toISOString(),
       tags: timeline.tags || [],
-      authorId: timeline.authorId || '',
-      authorName: timeline.authorName || '',
-      links: timeline.links.map(link => (typeof link === "string" ? { value: link } : link)),
+      authorId: timeline.authorId || "",
+      authorName: timeline.authorName || "",
+      links: timeline.links.map((link) =>
+        typeof link === "string" ? { value: link } : link
+      ),
     };
 
     return {

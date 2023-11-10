@@ -15,6 +15,7 @@ import IFrame from "./Iframe";
 import { isYtUrl, extractVideoId, extractTimestamp } from "@/utils/isYtUrl";
 import YouTubePlayer from "./YoutubePlayer";
 import Ad from "./Ad";
+import PostAuthorCard from "./PostAuthorCard";
 
 const TimeLine: FunctionComponent<TimeLineProps> = ({
   timeline,
@@ -83,7 +84,7 @@ const TimeLine: FunctionComponent<TimeLineProps> = ({
   const timeLineUrl = BASE_URL + `/nota/${urlSlug ? urlSlug : _id}`;
 
   return (
-    <div className="mb-4 max-w-[850px] mx-auto break-all">
+    <div className="mb-4 max-w-[850px] lg:max-w-[1024px] mx-auto break-all flex flex-col lg:flex-row lg:gap-4">
       <Head>
         <HeadMetaTags
           timeline={timeline}
@@ -93,7 +94,7 @@ const TimeLine: FunctionComponent<TimeLineProps> = ({
           siteName="doxa-board"
         />
       </Head>
-      <div className="bg-white shadow-md rounded-lg py-4">
+      <div className="py-4">
         <div className="">{/* <Ad/> */}</div>
         <div className="px-4">
           <div className="text-left">
@@ -111,9 +112,9 @@ const TimeLine: FunctionComponent<TimeLineProps> = ({
                 </p>
               ))}
           </div>
-          <p className="text-sm text-gray-600 mt-2">{tags.join(", ")}</p>
-          <p className="text-sm text-gray-500">{formatDateString(createdAt)}</p>
-          <p className="text-sm text-gray-500 capitalize">
+          <p className="text-sm text-white mt-2">{tags.join(", ")}</p>
+          <p className="text-sm text-gray-300">{formatDateString(createdAt)}</p>
+          <p className="text-sm text-gray-300 capitalize">
             {authorName === "defaultName" ? "" : authorName}
           </p>
           <div className="mt-4 flex justify-between items-center">
@@ -222,6 +223,13 @@ const TimeLine: FunctionComponent<TimeLineProps> = ({
               );
             })}
         </div>
+      </div>
+
+      <div className="w-full lg:w-1/5">
+        <div className="lg:hidden">
+          <PostAuthorCard username={authorId} />
+        </div>
+        <div className="hidden lg:block lg:border lg:w-full lg:h-screen lg:mt-32"></div>
       </div>
     </div>
   );

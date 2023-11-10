@@ -85,15 +85,17 @@ const UserButtonsPanel: FunctionComponent<UserButtonsPanelProps> = ({
             className="w-28 h-20 lg:h-fit lg:w-fit lg:rounded-lg lg:px-4 text-gray-300 lg:bg-[#3a3a3a] active:hover:opacity-70 lg:hover:opacity-70"
           >
             <Link
-              className="flex flex-col lg:flex-row lg:gap-2 justify-center items-center"
+              className="flex flex-col lg:flex-row lg:gap-2 justify-center items-center lg:py-1"
               href={e.href}
             >
               <FontAwesomeIcon
                 size="2x"
                 icon={e.icon}
-                className="lg:w-4"
+                className="w-10 h-10 lg:w-5 lg:h-5"
               />
-              <span>{e.name}</span>
+              <span className="text-sm break-normal min-h-[450px]:text-base">
+                {e.name}
+              </span>
             </Link>
           </li>
         );

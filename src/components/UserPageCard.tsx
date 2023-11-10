@@ -4,6 +4,7 @@ import UserButtonsPanel from "./UserButtonsPanel";
 import UserPicture from "./UserPicture";
 import { User } from "@/types";
 import { useFavorite } from "@/hooks/useFavorite";
+import Link from "next/link";
 
 const UserPageCard = ({ userData }: { userData: User | null }) => {
   const { isFavorite, mutation, isLoading } = useFavorite(
@@ -18,8 +19,8 @@ const UserPageCard = ({ userData }: { userData: User | null }) => {
       />
       <div className="text-center lg:text-left lg:flex lg:self-end lg:items-end lg:justify-between lg:ml-12 w-full">
         <div>
-          <p className="font-semibold text-2xl my-3 text-white">
-            {userData?.name}
+          <p className="font-semibold text-2xl my-3 text-white break-normal">
+            <Link href={`/usuarios/${userData?.slug}`}>{userData?.name}</Link>
           </p>
           {/* <ProfileStats /> */}
         </div>

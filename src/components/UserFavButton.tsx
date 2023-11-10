@@ -59,16 +59,18 @@ const UserFavButton = ({
             : isFavorite
             ? "text-yellow-500 sm:hover:text-white"
             : "text-white active:text-yellow-500 sm:hover:text-yellow-500"
-        } w-6 flex justify-center items-center`}
+        }  flex justify-center items-center lg:py-1`}
       >
         <FontAwesomeIcon
           size={size}
           icon={isFavorite ? faStar : farStar}
-          className="lg:w-6"
+          className="w-10 h-10 lg:w-5 lg:h-5"
         />
       </button>
       {showSpan && (
-        <span>{isFavorite ? "Eliminar de " : "Agregar a "}favoritos</span>
+        <span className="text-sm break-normal min-h-[450px]:text-base">
+          {isFavorite ? "Eliminar de " : "Agregar a "}favoritos
+        </span>
       )}
     </div>
   );
