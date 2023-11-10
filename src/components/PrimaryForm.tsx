@@ -90,9 +90,8 @@ const PrimaryForm = () => {
         const newPayload = {
           ...response,
           photo: previews.map((image, photoIdx: number) => {
-            const caption = imagesCaption.find(
-              (e) => e.idx === photoIdx
-            )?.value;
+            const caption = imagesCaption.find((e) => e.idx === photoIdx)
+              ?.value;
             return {
               url: image,
               idx: photoIdx,
@@ -123,9 +122,8 @@ const PrimaryForm = () => {
           _id: "newTimeline",
           createdAt: new Date().toDateString(),
           photo: previews.map((image, photoIdx: number) => {
-            const caption = imagesCaption.find(
-              (e) => e.idx === photoIdx
-            )?.value;
+            const caption = imagesCaption.find((e) => e.idx === photoIdx)
+              ?.value;
             return {
               url: image,
               idx: photoIdx,
@@ -285,26 +283,23 @@ const PrimaryForm = () => {
       throw err;
     }
 
-    // Reset state only after successful submission
     resetAll();
   };
 
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="mt-12 border-2 flex flex-col min-h-48 my-4 rounded-md max-w-[850px] mx-auto"
+      className="mt-12 border-2  border-[#3a3a3a] flex flex-col min-h-48 my-4 rounded-md max-w-[850px] mx-auto"
     >
       <div className="h-2/3 flex">
         <textarea
           {...register("mainText")}
           placeholder="Escribe algo acá"
-          className="w-full p-2 placeholder:text-2xl"
+          className="w-full p-2 bg-[#9a9a9a] text-gray-900 text-lg placeholder:text-lg placeholder:text-white"
         />
       </div>
       <div
-        className={`border-t-2 p-4 bg-stone-100 ${
-          moduleOpen() ? "min-h-48" : "h-1/3"
-        }`}
+        className={`p-4 bg-[#3a3a3a] ${moduleOpen() ? "min-h-48" : "h-1/3"}`}
       >
         <div className=" flex gap-4">
           <div>
@@ -313,7 +308,7 @@ const PrimaryForm = () => {
               onClick={handleInputActivation}
             >
               <FontAwesomeIcon
-                className="h-full text-orange-600 cursor-pointer hover:text-orange-500 transition-all"
+                className="h-full text-[#f90] cursor-pointer active:opacity-75 lg:hover:opacity-75 transition-all"
                 icon={faCamera}
               />
             </button>
@@ -337,8 +332,8 @@ const PrimaryForm = () => {
               }}
             >
               <FontAwesomeIcon
-                className={`h-full cursor-pointer hover:text-orange-500 transition-all ${
-                  tagInputVisibility ? "text-orange-900" : "text-orange-600"
+                className={`h-full text-[#f90] cursor-pointer active:opacity-75 lg:hover:opacity-75 transition-all ${
+                  tagInputVisibility ? "text-[#995c00]" : "text-[#f90]"
                 } `}
                 icon={faTag}
               />
@@ -353,7 +348,7 @@ const PrimaryForm = () => {
               }}
             >
               <FontAwesomeIcon
-                className="h-full text-orange-600 cursor-pointer hover:text-orange-500 transition-all "
+                className="h-full text-[#f90] cursor-pointer active:opacity-75 lg:hover:opacity-75 transition-all"
                 icon={faLink}
               />
             </button>
@@ -366,7 +361,7 @@ const PrimaryForm = () => {
               type="submit"
             >
               <FontAwesomeIcon
-                className="h-full text-orange-600 cursor-pointer hover:text-orange-500 transition-all "
+                className="h-full text-[#f90] cursor-pointer active:opacity-75 lg:hover:opacity-75 transition-all"
                 icon={faPaperPlane}
               />
             </button>

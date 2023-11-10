@@ -176,12 +176,12 @@ const InputList: FunctionComponent<InputListProps> = ({
     (inputList as string[]).map((item, idx) => (
       <li
         key={idx}
-        className="bg-white border rounded-md p-2 mb-2 w-full md:w-[30%] relative"
+        className="bg-black rounded-md p-2 mb-2 w-full md:w-[30%] relative"
       >
-        <div className="flex justify-between items-start">
-          <span className="text-blue-600 font-medium">{item}</span>
+        <div className="flex justify-between items-center">
+          <span className="text-[#f90] font-medium">{item}</span>
           <button
-            className="text-xs bg-red-500 font-bold w-5 h-5 rounded-full text-white absolute top-2 right-2"
+            className="text-xs bg-red-500 font-bold w-5 h-5 rounded-full text-white absolute top-2 right-2 flex justify-center items-center"
             onClick={(event) => {
               event.preventDefault();
               if (type === "tag") {
